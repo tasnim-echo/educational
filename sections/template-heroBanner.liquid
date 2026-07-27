@@ -1,0 +1,153 @@
+{{ 'template-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'tag' %}
+            <span class="hero__tag" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </span>
+
+          {% when 'heading' %}
+            <h1 class="hero__title" {{ block.shopify_attributes }}>
+              {{ block.settings.heading }}
+            </h1>
+
+          {% when 'subheading' %}
+            <div class="hero__subtitle" {{ block.shopify_attributes }}>
+              {{ block.settings.subheading }}
+            </div>
+
+          {% when 'feature' %}
+            <div class="hero__feature" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank %}
+                {{ block.settings.icon | image_url: width: 40 | image_tag: class: 'hero__icon-image' }}
+              {% else %}
+                <div class="hero__icon">
+                  <svg width="800px" height="800px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 7.5L7 10L11 5M7.5 14.5C3.63401 14.5 0.5 11.366 0.5 7.5C0.5 3.63401 3.63401 0.5 7.5 0.5C11.366 0.5 14.5 3.63401 14.5 7.5C14.5 11.366 11.366 14.5 7.5 14.5Z" stroke="#000000"/>
+                  </svg>
+                </div>
+              {% endif %}
+
+              <span>{{ block.settings.text }}</span>
+            </div>
+
+          {% when 'button' %}
+            <a
+              href="{{ block.settings.link }}"
+              class="hero__button"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.label }}
+            </a>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <div class="hero__image">
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag: alt: section.settings.image_alt, class: 'hero__image-img'
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__image-placeholder' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tag",
+          "default": "Science-Backed Hangover Relief"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Your Personal Bodyguard… But For Hangovers"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Hangover patches that deliver vitamins and nutrients while you sleep. Science-backed relief that actually works.</p>"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Premium Quality Materials"
+        }
+      ]
+    },
+
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button Label",
+          "default": "Shop Patches Now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

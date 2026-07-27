@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner": {
+      "type": "template-heroBanner",
+      "blocks": {
+        "tag": {
+          "type": "tag",
+          "settings": {}
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {}
+        },
+        "subheading": {
+          "type": "subheading",
+          "settings": {}
+        },
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "No Pills to swallow - 90% more effective"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "100% transdermal absorption"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Extended release formula"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tag",
+        "heading",
+        "subheading",
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "button"
+      ]
+    },
+    "usp_section": {
+      "type": "template-usp",
+      "blocks": {
+        "usp": {
+          "type": "usp",
+          "settings": {}
+        }
+      },
+      "block_order": ["usp"]
+    }
+  },
+  "order": ["image_banner", "usp_section"]
+}
