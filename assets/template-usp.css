@@ -47,3 +47,14 @@
   line-height: 1.6;
   color: #6b7280;
 }
+
+@media (max-width: 768px) {
+  .usp {
+    padding-inline: 20px;
+  }
+  .usp__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
