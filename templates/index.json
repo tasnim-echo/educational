@@ -14,15 +14,21 @@
       "blocks": {
         "tag": {
           "type": "tag",
-          "settings": {}
+          "settings": {
+            "text": "Science-Backed Hangover Relief"
+          }
         },
         "heading": {
           "type": "heading",
-          "settings": {}
+          "settings": {
+            "heading": "Your Personal Bodyguard… But For Hangovers"
+          }
         },
         "subheading": {
           "type": "subheading",
-          "settings": {}
+          "settings": {
+            "subheading": "<p>Hangover patches that deliver vitamins and nutrients while you sleep. Science-backed relief that actually works.</p>"
+          }
         },
         "feature_1": {
           "type": "feature",
@@ -44,7 +50,10 @@
         },
         "button": {
           "type": "button",
-          "settings": {}
+          "settings": {
+            "label": "Shop Patches Now",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -55,55 +64,421 @@
         "feature_2",
         "feature_3",
         "button"
-      ]
+      ],
+      "settings": {}
     },
-    "usp_section": {
+    "template_usp_AqMiPn": {
       "type": "template-usp",
       "blocks": {
-        "usp": {
+        "usp_WEPzFU": {
           "type": "usp",
-          "settings": {}
-        }
-      },
-      "block_order": ["usp"]
-    },
-    "info_grid": {
-      "type": "template-information-grid",
-      "blocks": {
-        "tag": {
-          "type": "tag",
-          "settings": {}
+          "settings": {
+            "heading": "5 Free Patches",
+            "subheading": "On orders $40+"
+          }
         },
-        "heading": {
-          "type": "heading",
-          "settings": {}
+        "usp_ngCgyL": {
+          "type": "usp",
+          "settings": {
+            "heading": "30-Day Guarantee",
+            "subheading": "Risk-free returns"
+          }
         },
-        "subheading": {
-          "type": "subheading",
-          "settings": {}
+        "usp_grdefc": {
+          "type": "usp",
+          "settings": {
+            "heading": "FDA Registered",
+            "subheading": "Certified facility"
+          }
         },
-        "feature": {
-          "type": "feature",
-          "settings": {}
-        },
-        "button": {
-          "type": "button",
-          "settings": {}
-        },
-        "accordion": {
-          "type": "accordion",
-          "settings": {}
+        "usp_qNmMgi": {
+          "type": "usp",
+          "settings": {
+            "heading": "All Natural",
+            "subheading": "Zero calories & sugar"
+          }
         }
       },
       "block_order": [
-        "tag",
-        "heading",
-        "subheading",
-        "feature",
-        "button",
-        "accordion"
-      ]
+        "usp_WEPzFU",
+        "usp_ngCgyL",
+        "usp_grdefc",
+        "usp_qNmMgi"
+      ],
+      "name": "USP Section",
+      "settings": {
+        "background_color": "#86e4ed",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_inline": 150
+      }
+    },
+    "template_information_grid_WA9FrH": {
+      "type": "template-information-grid",
+      "blocks": {
+        "tag_hCpmf7": {
+          "type": "tag",
+          "settings": {
+            "text": "THE PROBLEM"
+          }
+        },
+        "heading_tLLf3H": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Do Hangovers Feel So Bad?"
+          }
+        },
+        "subheading_cFPJkY": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Alcohol depletes your body of essential vitamins and nutrients, disrupts your sleep cycle, and causes dehydration — a perfect storm that leaves you wrecked the next morning.</p>"
+          }
+        },
+        "feature_6Khky8": {
+          "type": "feature",
+          "settings": {
+            "title": "Pounding headaches",
+            "description": "Alcohol causes blood vessels to expand and triggers inflammation, leaving your head throbbing."
+          }
+        },
+        "feature_YG94XJ": {
+          "type": "feature",
+          "settings": {
+            "title": "Nausea & stomach pain",
+            "description": "Alcohol irritates your stomach lining and disrupts your digestive system, causing waves of nausea."
+          }
+        },
+        "feature_MdWfBM": {
+          "type": "feature",
+          "settings": {
+            "title": "Extreme fatigue",
+            "description": "Despite sleeping, alcohol fragments your sleep cycles so you wake up feeling more tired than before."
+          }
+        },
+        "feature_xtj8nc": {
+          "type": "feature",
+          "settings": {
+            "title": "Brain fog & irritability",
+            "description": "Alcohol depletes B vitamins essential for brain function, leaving you foggy, anxious, and on edge."
+          }
+        },
+        "accordion_REAEAh": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Did you know?",
+            "content": "<p>When you swallow a vitamin pill the morning after, only ~10% of the nutrients actually reach your bloodstream. The rest is destroyed by your already-irritated stomach acid.</p>",
+            "background_color": "#fef7e0",
+            "open_by_default": true
+          }
+        }
+      },
+      "block_order": [
+        "tag_hCpmf7",
+        "heading_tLLf3H",
+        "subheading_cFPJkY",
+        "feature_6Khky8",
+        "feature_YG94XJ",
+        "feature_MdWfBM",
+        "feature_xtj8nc",
+        "accordion_REAEAh"
+      ],
+      "name": "Information Grid",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "template_information_grid_exHPEh": {
+      "type": "template-information-grid",
+      "blocks": {
+        "button_xQPhGX": {
+          "type": "button",
+          "settings": {
+            "label": "Shop Patches Now",
+            "link": "",
+            "background_color": "#fbd03a"
+          }
+        },
+        "tag_8xLkH6": {
+          "type": "tag",
+          "settings": {
+            "text": "THE SOLUTION"
+          }
+        },
+        "heading_bBU4Wg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Meet Party Patch"
+          }
+        },
+        "subheading_aTYDeU": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>A transdermal vitamin patch you apply before drinking. It <br/>delivers exactly what your body needs — bypassing your <br/>stomach entirely — so you wake up feeling like yourself again.</p>"
+          }
+        },
+        "feature_KELX6W": {
+          "type": "feature",
+          "settings": {
+            "title": "No pills to swallow",
+            "description": "Anti-pill formula means zero stomach \nirritation — especially important when \nyou're already feeling rough."
+          }
+        },
+        "feature_w8kmdG": {
+          "type": "feature",
+          "settings": {
+            "title": "100% direct absorption",
+            "description": "Nutrients bypass your digestive system \nentirely and go straight into your \nbloodstream through your skin."
+          }
+        },
+        "feature_JTVzkF": {
+          "type": "feature",
+          "settings": {
+            "title": "Extended release formula",
+            "description": "Unlike a pill that peaks and crashes in a \nfew hours, the patch delivers a steady flow \nof nutrients all day."
+          }
+        },
+        "feature_m6iXXz": {
+          "type": "feature",
+          "settings": {
+            "title": "Works while you celebrate",
+            "description": "Applies before drinking. Works actively \nwhile you are out drinking. Zero morning \nhassle required."
+          }
+        }
+      },
+      "block_order": [
+        "button_xQPhGX",
+        "tag_8xLkH6",
+        "heading_bBU4Wg",
+        "subheading_aTYDeU",
+        "feature_KELX6W",
+        "feature_w8kmdG",
+        "feature_JTVzkF",
+        "feature_m6iXXz"
+      ],
+      "name": "Information Grid",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "template_how_it_works_z8mJhp": {
+      "type": "template-how-it-works",
+      "blocks": {
+        "tag_8x3U6D": {
+          "type": "tag",
+          "settings": {
+            "text": "HOW IT WORKS"
+          }
+        },
+        "heading_kx7Ke9": {
+          "type": "heading",
+          "settings": {
+            "heading": "How To Use Party Patches"
+          }
+        },
+        "subheading_4jf6X3": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Three steps. No pills to remember. No powders to mix. Just peel, stick, and wake up winning.</p>"
+          }
+        },
+        "step_qEPy9M": {
+          "type": "step",
+          "settings": {
+            "title": "Apply Before Drinking",
+            "description": "tays put all day and night.Place the patch on clean, dry skin — inner arm or shoulder works great. It's gentle, waterproof, and stays put all day and night."
+          }
+        },
+        "step_6EfrfP": {
+          "type": "step",
+          "settings": {
+            "title": "Absorb While You Party",
+            "description": "ream — no stomach acid, no waste.While you drink, nutrients absorb transdermally straight into your bloodstream — no stomach acid, no waste."
+          }
+        },
+        "step_LMxYVP": {
+          "type": "step",
+          "settings": {
+            "title": "Wake Up Refreshed",
+            "description": "ff in the morning and go. No headache fog, no wasted day. Just you, feeling like yourself.Peel it off in the morning and go. No headache fog, no wasted day. Just you, feeling like yourself."
+          }
+        },
+        "accordion_LXpDmc": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Did you know?",
+            "content": "<p>Swallowing a pill? Only ~10% of nutrients reach your bloodstream. Our transdermal patch bypasses digestion entirely for 100% absorption — with zero stomach irritation.</p>",
+            "background_color": "#fef7e0",
+            "open_by_default": true
+          }
+        }
+      },
+      "block_order": [
+        "tag_8x3U6D",
+        "heading_kx7Ke9",
+        "subheading_4jf6X3",
+        "step_qEPy9M",
+        "step_6EfrfP",
+        "step_LMxYVP",
+        "accordion_LXpDmc"
+      ],
+      "name": "How It Works",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "image_alt": "How it works"
+      }
+    },
+    "template_information_grid_7CdmfC": {
+      "type": "template-information-grid",
+      "blocks": {
+        "button_iqxiUx": {
+          "type": "button",
+          "settings": {
+            "label": "Learn More About the Science",
+            "link": "",
+            "background_color": "#86e4ed"
+          }
+        },
+        "tag_y9hFfq": {
+          "type": "tag",
+          "settings": {
+            "text": "WHAT'S INSIDE"
+          }
+        },
+        "heading_qyXYKd": {
+          "type": "heading",
+          "settings": {
+            "heading": "A Vitamin Powerhouse"
+          }
+        },
+        "subheading_UDFzzx": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Powerful ingredients. Zero nonsense. Every compound <br/>targets a specific part of how alcohol affects your body.</p>"
+          }
+        },
+        "feature_4CAqTz": {
+          "type": "feature",
+          "settings": {
+            "title": "Vitamin B1 (Thiamine)",
+            "description": "Helps process alcohol toxins and \nsupports nervous system recovery"
+          }
+        },
+        "feature_wbLptq": {
+          "type": "feature",
+          "settings": {
+            "title": "Vitamin B5",
+            "description": "Converts alcohol to energy and \nsupports your immune response"
+          }
+        },
+        "feature_kWUrzU": {
+          "type": "feature",
+          "settings": {
+            "title": "Vitamin B6",
+            "description": "Protects your immune system and cuts \nthrough next-day brain fog"
+          }
+        },
+        "feature_4pxExx": {
+          "type": "feature",
+          "settings": {
+            "title": "Taurine",
+            "description": "Balances electrolytes and fights nausea \nso you feel human again"
+          }
+        }
+      },
+      "block_order": [
+        "button_iqxiUx",
+        "tag_y9hFfq",
+        "heading_qyXYKd",
+        "subheading_UDFzzx",
+        "feature_4CAqTz",
+        "feature_wbLptq",
+        "feature_kWUrzU",
+        "feature_4pxExx"
+      ],
+      "name": "Information Grid",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "template_testimonials_BammtF": {
+      "type": "template-testimonials",
+      "blocks": {
+        "tag_JEha44": {
+          "type": "tag",
+          "settings": {
+            "text": "#WINTOMORROW WITH PARTY PATCH"
+          }
+        },
+        "heading_7XjYT8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trusted by Millions"
+          }
+        },
+        "rating_kjy9AM": {
+          "type": "rating",
+          "settings": {
+            "stars": 5,
+            "text": "4.8 stars from 500,000+ reviews"
+          }
+        },
+        "review_FEEcXj": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/jonas-kakaroto-KIPqvvTOC1s-unsplash.jpg",
+            "stars": 5,
+            "name": "Jennifer",
+            "review": "<p>“I didn’t know how these patches work, but they are amazing. I used to get hungover every time I drank, even when I only had a drink or two. I’ll never drink without a patch again, with every penny.”</p>"
+          }
+        },
+        "review_E3ePAd": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "name": "Michael",
+            "review": "<p>“Husband and i both in our 40s, tried these for a big party event. Woke up feeling great, these patches are very effectiv”</p>"
+          }
+        },
+        "review_F34FWU": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "name": "Sarah",
+            "review": "<p>“This product really works. Drank a fifth of tequila the night  before (that’s a lot of alcohol for me) and no hangover or symptoms whatever. Good and bad. lmao. But it works!”</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tag_JEha44",
+        "heading_7XjYT8",
+        "rating_kjy9AM",
+        "review_FEEcXj",
+        "review_E3ePAd",
+        "review_F34FWU"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
-  "order": ["image_banner", "usp_section", "info_grid"]
+  "order": [
+    "image_banner",
+    "template_usp_AqMiPn",
+    "template_information_grid_WA9FrH",
+    "template_information_grid_exHPEh",
+    "template_how_it_works_z8mJhp",
+    "template_information_grid_7CdmfC",
+    "template_testimonials_BammtF"
+  ]
 }

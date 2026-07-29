@@ -1,0 +1,154 @@
+.how-it-works {
+  background: var(--how-it-works-bg);
+  padding-top: var(--how-it-works-padding-top);
+  padding-bottom: var(--how-it-works-padding-bottom);
+  padding-inline: 80px;
+}
+.how-it-works__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 54px;
+}
+/* Left */
+.how-it-works__content {
+  display: flex;
+  flex-direction: column;
+}
+.how-it-works__tag {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+/* Right */
+.how-it-works__image {
+  height: 100%;
+}
+
+.how-it-works__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 24px;
+}
+.how-it-works__heading {
+  font-size: 40px;
+  font-weight: 700;
+  color: #111;
+  margin-block: 16px;
+  font-weight: 900;
+}
+.how-it-works__subheading {
+  max-width: 400px;
+}
+
+.how-it-works__subheading p {
+  margin: 0;
+  font-size: 18px;
+  color: #000;
+}
+
+/* Steps */
+.how-it-works__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-block: 16px;
+}
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid #dedede;
+  border-radius: 18px;
+  background: #fff;
+}
+.step-card__number {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #86e4ed;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+}
+.step-card__content {
+  flex: 1;
+}
+.step-card__title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111;
+}
+.step-card__description {
+  margin: 0;
+  font-size: 17px;
+  color: #111;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 990px) {
+  .how-it-works {
+    padding: 60px 20px;
+  }
+
+  .how-it-works__container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .how-it-works__image {
+    height: 450px;
+  }
+
+  .how-it-works__heading {
+    font-size: 40px;
+  }
+
+  .how-it-works__subheading p {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .how-it-works {
+    padding: 40px 20px;
+  }
+
+  .how-it-works__heading {
+    font-size: 32px;
+  }
+
+  .step-card {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .step-card__number {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .step-card__title {
+    font-size: 18px;
+  }
+
+  .step-card__description {
+    font-size: 15px;
+  }
+
+  .how-it-works__image {
+    height: 320px;
+  }
+}

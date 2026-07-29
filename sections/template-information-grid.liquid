@@ -1,5 +1,4 @@
 {{ 'template-information-grid.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'template-accordion.js' | asset_url }}" defer></script>
 
 <section
   class="info-grid"
@@ -40,6 +39,15 @@
               <div class="feature-card__icon">
                 {% if block.settings.icon != blank %}
                   {{ block.settings.icon | image_url: width: 28 | image_tag }}
+
+                {% else %}
+                  <img
+                    src="{{ 'template-placeholder-icon.svg' | asset_url }}"
+                    alt="USP icon"
+                    width="48"
+                    height="48"
+                    class="usp__icon-image"
+                  >
                 {% endif %}
               </div>
 
@@ -62,39 +70,19 @@
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'button' %}
-            <a
-              href="{{ block.settings.link }}"
-              class="info-grid__button"
-              style="--button-bg: {{ block.settings.background_color }};"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.label }}
-            </a>
+            <div class="info-grid__button-wrapper">
+              <a
+                href="{{ block.settings.link }}"
+                class="info-grid__button"
+                style="--button-bg: {{ block.settings.background_color }};"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.label }}
+              </a>
+            </div>
 
           {% when 'accordion' %}
-            <div
-              class="info-grid__accordion{% if block.settings.open_by_default %} is-open {% endif %}"
-              style="--accordion-bg: {{ block.settings.background_color }};"
-              {{ block.shopify_attributes }}
-            >
-              <button class="accordion__header">
-                <span>
-                  {% if block.settings.icon != blank %}
-                    {{ block.settings.icon | image_url: width: 24 | image_tag }}
-                  {% endif %}
-
-                  {{ block.settings.heading }}
-                </span>
-
-                <span class="accordion__icon">
-                  {% render 'template-up-arrow' %}
-                </span>
-              </button>
-
-              <div class="accordion__content">
-                {{ block.settings.content }}
-              </div>
-            </div>
+            {% render 'template-accordion', block: block %}
         {% endcase %}
       {% endfor %}
     </div>
@@ -119,7 +107,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 80
+      "default": 40
     },
     {
       "type": "range",
@@ -129,7 +117,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 80
+      "default": 40
     }
   ],
   "blocks": [
@@ -141,8 +129,7 @@
         {
           "type": "text",
           "id": "text",
-          "label": "Tag",
-          "default": "THE PROBLEM"
+          "label": "Tag"
         }
       ]
     },
@@ -154,8 +141,7 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "label": "Heading",
-          "default": "Why Do Hangovers Feel So Bad?"
+          "label": "Heading"
         }
       ]
     },
@@ -191,8 +177,7 @@
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
-          "default": "Alcohol causes blood vessels to expand and triggers inflammation, leaving your head throbbing."
+          "label": "Description"
         }
       ]
     },
@@ -233,14 +218,12 @@
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
-          "default": "Did you know?"
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "content",
-          "label": "Content",
-          "default": "<p>When you swallow a vitamin pill the morning after, only ~10% of the nutrients actually reach your bloodstream. The rest is destroyed by your already-irritated stomach acid — which is exactly why pills feel useless when you're hungover.</p>"
+          "label": "Content"
         },
         {
           "type": "color",
@@ -252,7 +235,69 @@
           "type": "checkbox",
           "id": "open_by_default",
           "label": "Open by default",
-          "default": false
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Information Grid",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "THE PROBLEM"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Do Hangovers Feel So Bad?"
+          }
+        },
+        {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Alcohol depletes your body of essential vitamins and nutrients, disrupts your sleep cycle, and causes dehydration — a perfect storm that leaves you wrecked the next morning.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Pounding headaches",
+            "description": "Alcohol causes blood vessels to expand and triggers inflammation, leaving your head throbbing."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Nausea & stomach pain",
+            "description": "Alcohol irritates your stomach lining and disrupts your digestive system, causing waves of nausea."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Extreme fatigue",
+            "description": "Despite sleeping, alcohol fragments your sleep cycles so you wake up feeling more tired than before."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Brain fog & irritability",
+            "description": "Alcohol depletes B vitamins essential for brain function, leaving you foggy, anxious, and on edge."
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "heading": "Did you know?",
+            "content": "<p>When you swallow a vitamin pill the morning after, only ~10% of the nutrients actually reach your bloodstream. The rest is destroyed by your already-irritated stomach acid.</p>",
+            "open_by_default": true,
+            "background_color": "#fef7e0"
+          }
         }
       ]
     }

@@ -1,0 +1,280 @@
+{{ 'template-how-it-works.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="how-it-works"
+  style="
+    --how-it-works-bg:{{ section.settings.background_color }};
+    --how-it-works-padding-top:{{ section.settings.padding_top }};
+    --how-it-works-padding-bottom:{{ section.settings.padding_bottom }};
+  "
+>
+  <div class="page-width-custom">
+    <div class="how-it-works__container">
+      <!-- Left Content -->
+      <div class="how-it-works__content">
+        <!-- Header -->
+        <div class="how-it-works__header">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'tag' %}
+                <span class="how-it-works__tag" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </span>
+              {% when 'heading' %}
+                <h2 class="how-it-works__heading" {{ block.shopify_attributes }}>
+                  {{ block.settings.heading }}
+                </h2>
+
+              {% when 'subheading' %}
+                <div class="how-it-works__subheading" {{ block.shopify_attributes }}>
+                  {{ block.settings.subheading }}
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+
+        <!-- Steps -->
+        <div class="how-it-works__steps">
+          {% assign step_number = 0 %}
+
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'step' %}
+                {% assign step_number = step_number | plus: 1 %}
+                <div class="step-card">
+                  <div class="step-card__number">
+                    {{ step_number }}
+                  </div>
+
+                  <div class="step-card__content">
+                    <h3 class="step-card__title">
+                      {{ block.settings.title }}
+                    </h3>
+
+                    <p class="step-card__description">
+                      {{ block.settings.description }}
+                    </p>
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+
+        <!-- Footer -->
+        <div class="how-it-works__footer">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'accordion' %}
+                {% render 'template-accordion', block: block %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      <div class="how-it-works__image">
+        {% if section.settings.image != blank %}
+          {{
+            section.settings.image
+            | image_url: width: 900
+            | image_tag: class: 'how-it-works__image-img', alt: section.settings.image_alt
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "How it works"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tag",
+          "default": "HOW IT WORKS"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "How To Use Party Patches"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Three steps. No pills to remember. No powders to mix. Just peel, stick, and wake up winning.</p>"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#fef7e0"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "HOW IT WORKS"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "How To Use Party Patches"
+          }
+        },
+        {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Three steps. No pills to remember. No powders to mix. Just peel, stick, and wake up winning.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Apply Before Drinking",
+            "description": "tays put all day and night.Place the patch on clean, dry skin — inner arm or shoulder works great. It's gentle, waterproof, and stays put all day and night."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Absorb While You Party",
+            "description": "ream — no stomach acid, no waste.While you drink, nutrients absorb transdermally straight into your bloodstream — no stomach acid, no waste."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Wake Up Refreshed",
+            "description": "ff in the morning and go. No headache fog, no wasted day. Just you, feeling like yourself.Peel it off in the morning and go. No headache fog, no wasted day. Just you, feeling like yourself."
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "heading": "Did you know?",
+            "content": "<p>Swallowing a pill? Only ~10% of nutrients reach your bloodstream. Our transdermal patch bypasses digestion entirely for 100% absorption — with zero stomach irritation.</p>",
+            "background_color": "#fef7e0",
+            "open_by_default": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

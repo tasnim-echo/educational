@@ -1,0 +1,25 @@
+{{ 'template-accordion.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'template-accordion.js' | asset_url }}" defer></script>
+<div
+  class="info-grid__accordion{% if block.settings.open_by_default %} is-open {% endif %}"
+  style="--accordion-bg: {{ block.settings.background_color }};"
+  {{ block.shopify_attributes }}
+>
+  <button class="accordion__header">
+    <span>
+      {% if block.settings.icon != blank %}
+        {{ block.settings.icon | image_url: width: 24 | image_tag }}
+      {% endif %}
+
+      {{ block.settings.heading }}
+    </span>
+
+    <span class="accordion__icon">
+      {% render 'template-up-arrow' %}
+    </span>
+  </button>
+
+  <div class="accordion__content">
+    {{ block.settings.content }}
+  </div>
+</div>
