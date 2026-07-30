@@ -1,0 +1,64 @@
+<div
+  class="product-pack-card"
+  style="
+    --card-border: {{ block.settings.border_color }};
+    --button-bg: {{ block.settings.button_background }};
+    --button-color: {{ block.settings.button_text_color }};
+  "
+  {{ block.shopify_attributes }}
+>
+  <div class="product-pack-card__image">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 600 | image_tag: alt: product.title }}
+    {% endif %}
+  </div>
+
+  <div class="product-pack-card__content">
+    <h3 class="product-pack-card__title">
+      {{ product.title }}
+    </h3>
+
+    {% assign sizes = product.options_by_name.Size.values %}
+
+    {% if sizes %}
+      <p class="product-pack-card__subtitle">
+        {{ sizes | join: ', ' }}
+      </p>
+    {% endif %}
+
+    <div class="product-pack-card__price">
+      {{ product.price | money }}
+    </div>
+
+    {% assign features = product.metafields.custom.pack_features.value %}
+
+    {% if features %}
+      <div class="product-pack-card__features">
+        <ul>
+          {% for feature in features %}
+            <li>
+              {% if feature.icon %}
+                {{
+                  feature.icon
+                  | image_url: width: 24
+                  | image_tag: alt: feature.text, class: 'product-pack-card__feature-icon'
+                }}
+              {% endif %}
+
+              <span>{{ feature.text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="product-pack-card__footer">
+      <a
+        href="{{ product.url }}"
+        class="product-pack-card__button"
+      >
+        {{ block.settings.button_text }}
+      </a>
+    </div>
+  </div>
+</div>

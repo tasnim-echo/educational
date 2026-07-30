@@ -470,6 +470,97 @@
         "padding_top": 40,
         "padding_bottom": 40
       }
+    },
+    "template_choose_pack_NfwD9A": {
+      "type": "template-choose-pack",
+      "blocks": {
+        "tag_gEdgVT": {
+          "type": "tag",
+          "settings": {
+            "text": "MAKING MEMORIES"
+          }
+        },
+        "heading_9VpFQt": {
+          "type": "heading",
+          "settings": {
+            "heading": "Choose Your Pack"
+          }
+        },
+        "subheading_EDVRHx": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Stock up and save. 5 free patches on all orders over $40.</p>"
+          }
+        },
+        "card_QpaEGB": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "Daily Wellness",
+            "sizes": "5, 12, 25, 50 packs",
+            "price": "From $19.99",
+            "feature_1": "Science-backed formula",
+            "feature_2": "Clean skin application",
+            "feature_3": "Extended release",
+            "feature_4": "",
+            "feature_5": "",
+            "button_text": "Shop Wellness",
+            "border_color": "#F4B63D",
+            "button_background": "#FFD36A",
+            "button_text_color": "#111111"
+          }
+        },
+        "card_w8WdEJ": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "Sleep",
+            "sizes": "5, 12, 25 packs",
+            "price": "From $19.99",
+            "feature_1": "Everything in Daily Wellness",
+            "feature_2": "Fun occasion designs",
+            "feature_3": "Extended release",
+            "feature_4": "",
+            "feature_5": "",
+            "button_text": "Great for events & gifting",
+            "border_color": "#F4B63D",
+            "button_background": "#FFD36A",
+            "button_text_color": "#111111"
+          }
+        },
+        "card_7VDaJd": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "Recovery",
+            "sizes": "5, 12, 25 packs",
+            "price": "From $19.99",
+            "feature_1": "Everything in Themed",
+            "feature_2": "Clean skin application",
+            "feature_3": "Custom branding available",
+            "feature_4": "",
+            "feature_5": "",
+            "button_text": "Bulk ordering",
+            "border_color": "#F4B63D",
+            "button_background": "#FFD36A",
+            "button_text_color": "#111111"
+          }
+        }
+      },
+      "block_order": [
+        "tag_gEdgVT",
+        "heading_9VpFQt",
+        "subheading_EDVRHx",
+        "card_QpaEGB",
+        "card_w8WdEJ",
+        "card_7VDaJd"
+      ],
+      "name": "Choose Your Pack",
+      "settings": {
+        "background_color": "#DDFBFF",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
@@ -479,6 +570,7 @@
     "template_information_grid_exHPEh",
     "template_how_it_works_z8mJhp",
     "template_information_grid_7CdmfC",
-    "template_testimonials_BammtF"
+    "template_testimonials_BammtF",
+    "template_choose_pack_NfwD9A"
   ]
 }

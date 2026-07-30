@@ -1,0 +1,275 @@
+{{ 'template-choose-pack.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="choose-pack"
+  style="
+    --choose-pack-background: {{ section.settings.background_color }};
+    --choose-pack-padding-top: {{ section.settings.padding_top }}px;
+    --choose-pack-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width-custom">
+    <!-- Header -->
+    <div class="choose-pack__header">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'tag' %}
+            <span class="choose-pack__tag" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </span>
+          {% when 'heading' %}
+            <h2 class="choose-pack__heading" {{ block.shopify_attributes }}>
+              {{ block.settings.heading }}
+            </h2>
+          {% when 'subheading' %}
+            <div class="choose-pack__subheading" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.subheading }}</p>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <!-- Cards -->
+    <div class="choose-pack__grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'card' %}
+            {% assign product = block.settings.product %}
+            {% assign product = block.settings.product %}
+
+            {% if product != blank %}
+              {% render 'product-pack-card', product: product, block: block %}
+            {% else %}
+              {% render 'manual-pack-card', block: block %}
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Choose Your Pack",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#DDFBFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tag",
+          "default": "MAKING MEMORIES"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Choose Your Pack"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Stock up and save. 5 free patches on all orders over $40.</p>"
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Pack Card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Fallback Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Fallback Title"
+        },
+        {
+          "type": "text",
+          "id": "sizes",
+          "label": "Fallback Sizes"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Fallback Price"
+        },
+        {
+          "type": "header",
+          "content": "Fallback Features"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_icon",
+          "label": "Feature Icon"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3"
+        },
+        {
+          "type": "text",
+          "id": "feature_4",
+          "label": "Feature 4"
+        },
+        {
+          "type": "text",
+          "id": "feature_5",
+          "label": "Feature 5"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border Color",
+          "default": "#F4B63D"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button Background",
+          "default": "#FFD36A"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#111111"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Choose Your Pack",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "MAKING MEMORIES"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Choose Your Pack"
+          }
+        },
+        {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Stock up and save. 5 free patches on all orders over $40.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Daily Wellness",
+            "sizes": "5, 12, 25, 50 packs",
+            "price": "From $19.99",
+            "feature_1": "Science-backed formula",
+            "feature_2": "Clean skin application",
+            "feature_3": "Extended release",
+            "button_text": "Shop Wellness"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Sleep",
+            "sizes": "5, 12, 25 packs",
+            "price": "From $19.99",
+            "feature_1": "Everything in Daily Wellness",
+            "feature_2": "Fun occasion designs",
+            "feature_3": "Extended release",
+            "button_text": "Great for events & gifting"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Recovery",
+            "sizes": "5, 12, 25 packs",
+            "price": "From $19.99",
+            "feature_1": "Everything in Themed",
+            "feature_2": "Clean skin application",
+            "feature_3": "Custom branding available",
+            "button_text": "Bulk ordering"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

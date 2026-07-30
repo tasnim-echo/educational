@@ -1,0 +1,75 @@
+<div
+  class="product-pack-card"
+  style="
+    --card-border: {{ block.settings.border_color }};
+    --button-bg: {{ block.settings.button_background }};
+    --button-color: {{ block.settings.button_text_color }};
+  "
+  {{ block.shopify_attributes }}
+>
+  <div class="product-pack-card__image">
+    {% if block.settings.image %}
+      {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.title }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+
+  <div class="product-pack-card__content">
+    <h3 class="product-pack-card__title">
+      {{ block.settings.title }}
+    </h3>
+
+    {% if block.settings.sizes != blank %}
+      <p class="product-pack-card__subtitle">
+        {{ block.settings.sizes }}
+      </p>
+    {% endif %}
+
+    {% if block.settings.price != blank %}
+      <div class="product-pack-card__price">
+        {{ block.settings.price }}
+      </div>
+    {% endif %}
+
+    <div class="product-pack-card__features">
+      <ul>
+        {% for i in (1..5) %}
+          {% assign feature_key = 'feature_' | append: i %}
+          {% assign feature = block.settings[feature_key] %}
+
+          {% if feature != blank %}
+            <li>
+              {% if block.settings.feature_icon %}
+                {{
+                  block.settings.feature_icon
+                  | image_url: width: 24
+                  | image_tag: alt: feature, class: 'product-pack-card__feature-icon'
+                }}
+              {% else %}
+                <img
+                  src="{{ 'icon-check-mark.svg' | asset_url }}"
+                  alt="USP icon"
+                  width="24"
+                  height="24"
+                  class="usp__icon-image"
+                >
+              {% endif %}
+
+              <span>{{ feature }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="product-pack-card__footer">
+      <a
+        href="{{ block.settings.button_link }}"
+        class="product-pack-card__button"
+      >
+        {{ block.settings.button_text }}
+      </a>
+    </div>
+  </div>
+</div>
