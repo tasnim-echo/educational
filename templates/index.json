@@ -99,12 +99,7 @@
           }
         }
       },
-      "block_order": [
-        "usp_WEPzFU",
-        "usp_ngCgyL",
-        "usp_grdefc",
-        "usp_qNmMgi"
-      ],
+      "block_order": ["usp_WEPzFU", "usp_ngCgyL", "usp_grdefc", "usp_qNmMgi"],
       "name": "USP Section",
       "settings": {
         "background_color": "#86e4ed",
@@ -471,28 +466,28 @@
         "padding_bottom": 40
       }
     },
-    "template_choose_pack_NfwD9A": {
+    "template_choose_pack_w67paY": {
       "type": "template-choose-pack",
       "blocks": {
-        "tag_gEdgVT": {
+        "tag_BLBgdc": {
           "type": "tag",
           "settings": {
             "text": "MAKING MEMORIES"
           }
         },
-        "heading_9VpFQt": {
+        "heading_pk9RyC": {
           "type": "heading",
           "settings": {
             "heading": "Choose Your Pack"
           }
         },
-        "subheading_EDVRHx": {
+        "subheading_B3AYKL": {
           "type": "subheading",
           "settings": {
             "subheading": "<p>Stock up and save. 5 free patches on all orders over $40.</p>"
           }
         },
-        "card_QpaEGB": {
+        "card_PjUH4K": {
           "type": "card",
           "settings": {
             "product": "",
@@ -505,12 +500,12 @@
             "feature_4": "",
             "feature_5": "",
             "button_text": "Shop Wellness",
-            "border_color": "#F4B63D",
-            "button_background": "#FFD36A",
+            "border_color": "#f4b63d",
+            "button_background": "#ffd36a",
             "button_text_color": "#111111"
           }
         },
-        "card_w8WdEJ": {
+        "card_6FtPnP": {
           "type": "card",
           "settings": {
             "product": "",
@@ -522,13 +517,13 @@
             "feature_3": "Extended release",
             "feature_4": "",
             "feature_5": "",
-            "button_text": "Great for events & gifting",
-            "border_color": "#F4B63D",
-            "button_background": "#FFD36A",
+            "button_text": "Browse Themes",
+            "border_color": "#f4b63d",
+            "button_background": "#ffd36a",
             "button_text_color": "#111111"
           }
         },
-        "card_7VDaJd": {
+        "card_r8wrWD": {
           "type": "card",
           "settings": {
             "product": "",
@@ -540,26 +535,133 @@
             "feature_3": "Custom branding available",
             "feature_4": "",
             "feature_5": "",
-            "button_text": "Bulk ordering",
-            "border_color": "#F4B63D",
-            "button_background": "#FFD36A",
+            "button_text": "Start Designing",
+            "border_color": "#f4b63d",
+            "button_background": "#ffd36a",
             "button_text_color": "#111111"
           }
         }
       },
       "block_order": [
-        "tag_gEdgVT",
-        "heading_9VpFQt",
-        "subheading_EDVRHx",
-        "card_QpaEGB",
-        "card_w8WdEJ",
-        "card_7VDaJd"
+        "tag_BLBgdc",
+        "heading_pk9RyC",
+        "subheading_B3AYKL",
+        "card_PjUH4K",
+        "card_6FtPnP",
+        "card_r8wrWD"
       ],
       "name": "Choose Your Pack",
       "settings": {
-        "background_color": "#DDFBFF",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "background_color": "#bee9ed",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "template_comparison_table_HnFxez": {
+      "type": "template-comparison-table",
+      "blocks": {
+        "tag_pNDRif": {
+          "type": "tag",
+          "settings": {
+            "text": "HOW WE STACK UP",
+            "text_color": "#000000"
+          }
+        },
+        "heading_LTiFdC": {
+          "type": "heading",
+          "settings": {
+            "heading": "Party Patch vs. The Alternatives",
+            "text_color": "#000000"
+          }
+        },
+        "subheading_FdGCHT": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Party Patch is designed to work while you sleep — no pills, powders, or morning-after routine required.</p>",
+            "text_color": "#000000"
+          }
+        },
+        "button_dXLkVr": {
+          "type": "button",
+          "settings": {
+            "label": "Shop Patches Now",
+            "link": "",
+            "background": "#F4B63D",
+            "text_color": "#EEEEEE"
+          }
+        },
+        "row_NCxryP": {
+          "type": "row",
+          "settings": {
+            "label": "Works while you sleep",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross",
+            "check_background": "#86E4ED",
+            "cross_background": "#EEEEEE"
+          }
+        },
+        "row_d7ztRx": {
+          "type": "row",
+          "settings": {
+            "label": "No pills to swallow",
+            "party_patch": "check",
+            "pills": "check",
+            "drink_mix": "cross",
+            "check_background": "#86E4ED",
+            "cross_background": "#EEEEEE"
+          }
+        },
+        "row_cNBkqg": {
+          "type": "row",
+          "settings": {
+            "label": "Bypasses the stomach",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross",
+            "check_background": "#86E4ED",
+            "cross_background": "#EEEEEE"
+          }
+        },
+        "row_6fgbU3": {
+          "type": "row",
+          "settings": {
+            "label": "Extended release",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross",
+            "check_background": "#86E4ED",
+            "cross_background": "#EEEEEE"
+          }
+        },
+        "row_Qm4kEz": {
+          "type": "row",
+          "settings": {
+            "label": "Apply and forget",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "check",
+            "check_background": "#86E4ED",
+            "cross_background": "#EEEEEE"
+          }
+        }
+      },
+      "block_order": [
+        "tag_pNDRif",
+        "heading_LTiFdC",
+        "subheading_FdGCHT",
+        "button_dXLkVr",
+        "row_NCxryP",
+        "row_d7ztRx",
+        "row_cNBkqg",
+        "row_6fgbU3",
+        "row_Qm4kEz"
+      ],
+      "name": "Comparison Table",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
@@ -571,6 +673,7 @@
     "template_how_it_works_z8mJhp",
     "template_information_grid_7CdmfC",
     "template_testimonials_BammtF",
-    "template_choose_pack_NfwD9A"
+    "template_choose_pack_w67paY",
+    "template_comparison_table_HnFxez"
   ]
 }

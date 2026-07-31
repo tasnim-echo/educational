@@ -1,0 +1,442 @@
+{{ 'template-comparison-table.css' | asset_url | stylesheet_tag }}
+<section
+  class="comparison-table"
+  style="
+    --comparison-table-bg: {{ section.settings.background_color }};
+    --comparison-table-padding-top: {{ section.settings.padding_top }}px;
+    --comparison-table-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width-custom">
+    <!-- Header -->
+    <div class="comparison-table__header">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'tag' %}
+            <span
+              class="comparison-table__tag"
+              style="--tag-text-color: {{ block.settings.text_color }};"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.text }}
+            </span>
+          {% when 'heading' %}
+            <h2
+              class="comparison-table__heading"
+              style="--heading-text-color: {{ block.settings.text_color }};"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.heading }}
+            </h2>
+          {% when 'subheading' %}
+            <div
+              class="comparison-table__subheading"
+              style="--subheading-text-color: {{ block.settings.text_color }};"
+              {{ block.shopify_attributes }}
+            >
+              <p>
+                {{ block.settings.subheading }}
+              </p>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <!-- Table -->
+    <div class="comparison-table__wrapper">
+      <table class="comparison-table__table">
+        <thead>
+          <tr>
+            <th></th>
+
+            <th>Party Patch</th>
+            <th>Pills</th>
+            <th>Drink Mix</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            {% if block.type == 'row' %}
+              <tr {{ block.shopify_attributes }}>
+                <td>{{ block.settings.label }}</td>
+
+                <td>
+                  {% if block.settings.party_patch == 'check' %}
+                    <span
+                      style="--check-bg: {{ block.settings.check_background }};"
+                      class="comparison-table__icon comparison-table__icon--check"
+                    >
+                      <img
+                        src="{{ 'template-icon-check.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% else %}
+                    <span
+                      style="--cross-bg: {{ block.settings.cross_background }};"
+                      class="comparison-table__icon comparison-table__icon--cross"
+                    >
+                      <img
+                        src="{{ 'template-icon-cross.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if block.settings.pills == 'check' %}
+                    <span
+                      style="--check-bg: {{ block.settings.check_background }};"
+                      class="comparison-table__icon comparison-table__icon--check"
+                    >
+                      <img
+                        src="{{ 'template-icon-check.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% else %}
+                    <span
+                      style="--cross-bg: {{ block.settings.cross_background }};"
+                      class="comparison-table__icon comparison-table__icon--cross"
+                    >
+                      <img
+                        src="{{ 'template-icon-cross.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if block.settings.drink_mix == 'check' %}
+                    <span
+                      style="--check-bg: {{ block.settings.check_background }};"
+                      class="comparison-table__icon comparison-table__icon--check"
+                    >
+                      <img
+                        src="{{ 'template-icon-check.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% else %}
+                    <span
+                      style="--cross-bg: {{ block.settings.cross_background }};"
+                      class="comparison-table__icon comparison-table__icon--cross"
+                    >
+                      <img
+                        src="{{ 'template-icon-cross.svg' | asset_url }}"
+                        alt="check icon"
+                        width="24"
+                        height="24"
+                      >
+                    </span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Button -->
+    <div class="comparison-table__footer">
+      {% for block in section.blocks %}
+        {% if block.type == 'button' %}
+          <a
+            style="
+              --button-bg: {{ block.settings.background }};
+              --button-color: {{ block.settings.text_color }}px;
+            "
+            href="#"
+            class="comparison-table__button"
+            {{ block.shopify_attributes }}
+          >
+            Shop Patches Now
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tag",
+          "default": "HOW WE STACK UP"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Tag Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Party Patch vs. The Alternatives"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Heading Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Party Patch is designed to work while you sleep — no pills, powders, or morning-after routine required.</p>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Subheading Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Comparison Row",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Row Label"
+        },
+        {
+          "type": "select",
+          "id": "party_patch",
+          "label": "Party Patch",
+          "options": [
+            {
+              "value": "check",
+              "label": "Check"
+            },
+            {
+              "value": "cross",
+              "label": "Cross"
+            }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "select",
+          "id": "pills",
+          "label": "Pills",
+          "options": [
+            {
+              "value": "check",
+              "label": "Check"
+            },
+            {
+              "value": "cross",
+              "label": "Cross"
+            }
+          ],
+          "default": "cross"
+        },
+        {
+          "type": "select",
+          "id": "drink_mix",
+          "label": "Drink Mix",
+          "options": [
+            {
+              "value": "check",
+              "label": "Check"
+            },
+            {
+              "value": "cross",
+              "label": "Cross"
+            }
+          ],
+          "default": "cross"
+        },
+        {
+          "type": "color",
+          "id": "check_background",
+          "label": "Check Background",
+          "default": "#86E4ED"
+        },
+        {
+          "type": "color",
+          "id": "cross_background",
+          "label": "Cross Background",
+          "default": "#EEEEEE"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button Label",
+          "default": "Shop Patches Now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button Link"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Button Background",
+          "default": "#F4B63D"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Button Text Color",
+          "default": "#EEEEEE"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "HOW WE STACK UP"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Party Patch vs. The Alternatives"
+          }
+        },
+        {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Party Patch is designed to work while you sleep — no pills, powders, or morning-after routine required.</p>"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop Patches Now"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Works while you sleep",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "No pills to swallow",
+            "party_patch": "check",
+            "pills": "check",
+            "drink_mix": "cross"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Bypasses the stomach",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Extended release",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "cross"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "label": "Apply and forget",
+            "party_patch": "check",
+            "pills": "cross",
+            "drink_mix": "check"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
