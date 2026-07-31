@@ -560,6 +560,17 @@
     "template_comparison_table_HnFxez": {
       "type": "template-comparison-table",
       "blocks": {
+        "row_HGbpWN": {
+          "type": "row",
+          "settings": {
+            "label": "hjgghjghjhj",
+            "party_patch": "check",
+            "pills": "check",
+            "drink_mix": "cross",
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
+          }
+        },
         "tag_pNDRif": {
           "type": "tag",
           "settings": {
@@ -586,8 +597,8 @@
           "settings": {
             "label": "Shop Patches Now",
             "link": "",
-            "background": "#F4B63D",
-            "text_color": "#EEEEEE"
+            "background": "#f4b63d",
+            "text_color": "#eeeeee"
           }
         },
         "row_NCxryP": {
@@ -597,8 +608,8 @@
             "party_patch": "check",
             "pills": "cross",
             "drink_mix": "cross",
-            "check_background": "#86E4ED",
-            "cross_background": "#EEEEEE"
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
           }
         },
         "row_d7ztRx": {
@@ -608,8 +619,8 @@
             "party_patch": "check",
             "pills": "check",
             "drink_mix": "cross",
-            "check_background": "#86E4ED",
-            "cross_background": "#EEEEEE"
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
           }
         },
         "row_cNBkqg": {
@@ -619,8 +630,8 @@
             "party_patch": "check",
             "pills": "cross",
             "drink_mix": "cross",
-            "check_background": "#86E4ED",
-            "cross_background": "#EEEEEE"
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
           }
         },
         "row_6fgbU3": {
@@ -630,8 +641,8 @@
             "party_patch": "check",
             "pills": "cross",
             "drink_mix": "cross",
-            "check_background": "#86E4ED",
-            "cross_background": "#EEEEEE"
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
           }
         },
         "row_Qm4kEz": {
@@ -641,12 +652,13 @@
             "party_patch": "check",
             "pills": "cross",
             "drink_mix": "check",
-            "check_background": "#86E4ED",
-            "cross_background": "#EEEEEE"
+            "check_background": "#86e4ed",
+            "cross_background": "#eeeeee"
           }
         }
       },
       "block_order": [
+        "row_HGbpWN",
         "tag_pNDRif",
         "heading_LTiFdC",
         "subheading_FdGCHT",
@@ -663,6 +675,91 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "template_faq_jqiYfi": {
+      "type": "template-faq",
+      "blocks": {
+        "faq_q9fhcd": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does it take for the patch to work?",
+            "answer": "<p>Party Patch begins working while you sleep, delivering ingredients throughout the night.</p>"
+          }
+        },
+        "tag_hXiABW": {
+          "type": "tag",
+          "settings": {
+            "text": "GOT QUESTIONS?",
+            "text_color": "#000000"
+          }
+        },
+        "heading_rxxcxt": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "text_color": "#000000"
+          }
+        },
+        "faq_Kt87bd": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does it take for the patch to work?",
+            "answer": "<p>Party Patch begins working while you sleep, delivering ingredients throughout the night.</p>"
+          }
+        },
+        "faq_9BCmQH": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use multiple patches at once?",
+            "answer": "<p>Yes. You can use multiple patches depending on your needs.</p>"
+          }
+        },
+        "faq_Bj3XcA": {
+          "type": "faq",
+          "settings": {
+            "question": "Are there any side effects?",
+            "answer": "<p>Party Patch is designed for topical use. Consult your physician if you have sensitive skin.</p>"
+          }
+        },
+        "faq_bNKy9P": {
+          "type": "faq",
+          "settings": {
+            "question": "Will this work if I drink heavily?",
+            "answer": "<p>Party Patch is intended to support recovery, but should always be used responsibly.</p>"
+          }
+        },
+        "faq_Jk68DN": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I shower with the patch?",
+            "answer": "<p>Yes. Party Patch is water-resistant during normal daily activities.</p>"
+          }
+        },
+        "faq_dy3Rx9": {
+          "type": "faq",
+          "settings": {
+            "question": "What's your return policy?",
+            "answer": "<p>Please visit our Returns Policy page for complete details.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_q9fhcd",
+        "tag_hXiABW",
+        "heading_rxxcxt",
+        "faq_Kt87bd",
+        "faq_9BCmQH",
+        "faq_Bj3XcA",
+        "faq_bNKy9P",
+        "faq_Jk68DN",
+        "faq_dy3Rx9"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "background_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -674,6 +771,7 @@
     "template_information_grid_7CdmfC",
     "template_testimonials_BammtF",
     "template_choose_pack_w67paY",
-    "template_comparison_table_HnFxez"
+    "template_comparison_table_HnFxez",
+    "template_faq_jqiYfi"
   ]
 }

@@ -1,0 +1,202 @@
+{{ 'template-faq.css' | asset_url | stylesheet_tag }}
+<section
+  class="faq"
+  style="
+    --faq-bg: {{ section.settings.background_color }};
+    --faq-padding-top: {{ section.settings.padding_top }}px;
+    --faq-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width-custom">
+    <!-- Header -->
+    <div class="faq__header">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'tag' %}
+            <span class="faq__tag" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </span>
+
+          {% when 'heading' %}
+            <h2 class="faq__heading" {{ block.shopify_attributes }}>
+              {{ block.settings.heading }}
+            </h2>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <!-- Accordion -->
+    <div class="faq__accordion">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+          <details class="faq-item" {{ block.shopify_attributes }}>
+            <summary class="faq-item__question">
+              <span>{{ block.settings.question }}</span>
+
+              <span class="faq-item__icon">
+                {% render 'template-up-arrow' %}
+              </span>
+            </summary>
+
+            <div class="faq-item__answer">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tag",
+          "default": "GOT QUESTIONS?"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Tag Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Frequently Asked Questions"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Heading Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does it take for the patch to work?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Party Patch begins working while you sleep, delivering ingredients throughout the night.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "GOT QUESTIONS?"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How long does it take for the patch to work?",
+            "answer": "<p>Party Patch begins working while you sleep, delivering ingredients throughout the night.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use multiple patches at once?",
+            "answer": "<p>Yes. You can use multiple patches depending on your needs.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Are there any side effects?",
+            "answer": "<p>Party Patch is designed for topical use. Consult your physician if you have sensitive skin.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will this work if I drink heavily?",
+            "answer": "<p>Party Patch is intended to support recovery, but should always be used responsibly.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I shower with the patch?",
+            "answer": "<p>Yes. Party Patch is water-resistant during normal daily activities.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What's your return policy?",
+            "answer": "<p>Please visit our Returns Policy page for complete details.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
