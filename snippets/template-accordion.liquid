@@ -9,6 +9,14 @@
     <span>
       {% if block.settings.icon != blank %}
         {{ block.settings.icon | image_url: width: 24 | image_tag }}
+      {% else %}
+        <img
+          src="{{ 'template-placeholder-icon.svg' | asset_url }}"
+          alt="USP icon"
+          width="24"
+          height="24"
+          class="usp__icon-image"
+        >
       {% endif %}
 
       {{ block.settings.heading }}
@@ -20,6 +28,32 @@
   </button>
 
   <div class="accordion__content">
+    {{ block.settings.content }}
+  </div>
+</div>
+
+<div
+  style="--accordion-bg: {{ block.settings.background_color }};"
+  class="info-grid__mobile-block"
+  {{ block.shopify_attributes }}
+>
+  <div class="info-grid__mobile-heading">
+    {% if block.settings.icon != blank %}
+      {{ block.settings.icon | image_url: width: 24 | image_tag }}
+    {% else %}
+      <img
+        src="{{ 'template-placeholder-icon.svg' | asset_url }}"
+        alt="USP icon"
+        width="24"
+        height="24"
+        class="usp__icon-image"
+      >
+    {% endif %}
+
+    {{ block.settings.heading }}
+  </div>
+
+  <div class="info-grid__mobile-content">
     {{ block.settings.content }}
   </div>
 </div>

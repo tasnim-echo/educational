@@ -61,3 +61,29 @@
 .accordion__content p {
   margin: 0;
 }
+.info-grid__mobile-block {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .info-grid__accordion {
+    display: none;
+  }
+
+  .info-grid__mobile-block {
+    display: block;
+
+    border-radius: 16px;
+    background: var(--accordion-bg);
+    border: 1px solid #fbd03a;
+    padding: 16px;
+  }
+
+  .info-grid__mobile-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+}
