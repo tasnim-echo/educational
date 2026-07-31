@@ -2,7 +2,7 @@
 <section
   class="faq"
   style="
-    --faq-bg: {{ section.settings.background_color }};
+    --faq-bg: {{ section.settings.background  }};
     --faq-padding-top: {{ section.settings.padding_top }}px;
     --faq-padding-bottom: {{ section.settings.padding_bottom }}px;
   "
@@ -13,12 +13,20 @@
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'tag' %}
-            <span class="faq__tag" {{ block.shopify_attributes }}>
+            <span
+              style="--tag-text-color: {{ block.settings.text_color }};"
+              class="faq__tag"
+              {{ block.shopify_attributes }}
+            >
               {{ block.settings.text }}
             </span>
 
           {% when 'heading' %}
-            <h2 class="faq__heading" {{ block.shopify_attributes }}>
+            <h2
+              style="--heading-text-color: {{ block.settings.text_color }};"
+              class="faq__heading"
+              {{ block.shopify_attributes }}
+            >
               {{ block.settings.heading }}
             </h2>
         {% endcase %}
@@ -52,10 +60,10 @@
   "name": "FAQ",
   "settings": [
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#ffffff"
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "linear-gradient(135deg, #fbf8e3 20%, #e3fbf8 100%)"
     },
     {
       "type": "range",
