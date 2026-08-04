@@ -1,0 +1,81 @@
+{{ 'template-blog-layout.css' | asset_url | stylesheet_tag }}
+<section
+  class="blog-layout"
+  style="
+    --blog-layout-padding-top: {{ section.settings.padding_top }}px;
+    --blog-layout-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --blog-layout-padding-inline: {{ section.settings.padding_inline }}px;
+  "
+>
+  <div class="page-width-custom">
+    <div class="blog-layout__wrapper">
+      <div class="blog-layout__content">
+        {% comment %} first snippet:hangover_cause {% endcomment %}
+        {% assign hangover_cause = article.metafields.custom.hangover_cause.value %}
+        {% render 'template-blog-hangover-cause', section_data: hangover_cause %}
+
+        {% comment %} first snippet:hangover-science {% endcomment %}
+        {% assign science = article.metafields.custom.hangover_patches_science.value %}
+        {% render 'template-blog-hangover-science', section_data: science %}
+
+        {% comment %} first snippet:how_to_use {% endcomment %}
+        {% assign how_to_use = article.metafields.custom.how_to_use.value %}
+        {% render 'template-blog-how-to-use', section_data: how_to_use %}
+
+        {% render 'template-blog-try-party-patch' %}
+        {% render 'template-blog-testimonials' %}
+        {% render 'template-blog-perfect-usage' %}
+        {% render 'template-blog-comparison-table' %}
+        {% render 'template-blog-FAQ' %}
+        {% render 'template-blog-written-by' %}
+      </div>
+
+      {% render 'template-blog-sidebar' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Layout",
+
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Padding Inline",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Blog Layout"
+    }
+  ]
+}
+{% endschema %}

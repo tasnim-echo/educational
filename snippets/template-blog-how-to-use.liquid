@@ -1,0 +1,31 @@
+{% if section_data %}
+  <section class="blog-how-to-use">
+    <h2 class="blog-how-to-use__heading">
+      {{ section_data.heading }}
+    </h2>
+
+    <div class="blog-how-to-use__description rte">
+      {{ section_data.description }}
+    </div>
+
+    <div class="blog-how-to-use__grid">
+      {% for step in section_data.steps.value %}
+        <div class="blog-how-to-use__card">
+          <span class="blog-how-to-use__number">
+            {{ step.number }}
+          </span>
+
+          <div class="blog-how-to-use__content">
+            <h3>
+              {{ step.title }}
+            </h3>
+
+            <div class="rte">
+              <p>{{ step.descriptions }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

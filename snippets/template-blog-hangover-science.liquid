@@ -1,0 +1,24 @@
+{% if section_data %}
+  <section class="blog-hangover-science">
+    <h2 class="blog-hangover-science__heading">
+      {{ section_data.header }}
+    </h2>
+
+    <div class="blog-hangover-science__description rte">
+      <p>{{ section_data.description }}</p>
+    </div>
+
+    {% if section_data.image %}
+      <div class="blog-hangover-science__image">
+        {{
+          section_data.image
+          | image_url: width: 1200
+          | image_tag: loading: 'lazy', class: 'blog-hangover-science__img'
+        }}
+      </div>
+    {% endif %}
+    <p class="blog-hangover-science__label">
+      {{ section_data.label }}
+    </p>
+  </section>
+{% endif %}
