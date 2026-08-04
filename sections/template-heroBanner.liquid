@@ -1,6 +1,18 @@
 {{ 'template-hero.css' | asset_url | stylesheet_tag }}
 
-<section class="hero">
+{% if template.name == 'article' %}
+  {% assign hero_details = article.metafields.custom.hero_details.value %}
+{% endif %}
+
+<section
+  class="hero"
+  style="
+    --hero-background: {{ section.settings.background_color }};
+    --hero-padding-top: {{ section.settings.padding_top }}px;
+    --hero-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --hero-padding-inline: {{ section.settings.padding_inline }}px;
+  "
+>
   <div class="hero__container">
     <div class="hero__content">
       {% for block in section.blocks %}
@@ -9,6 +21,19 @@
             <span class="hero__tag" {{ block.shopify_attributes }}>
               {{ block.settings.text }}
             </span>
+
+          {% when 'breadcrumb' %}
+            {% if template.name == 'article' %}
+              {% assign breadcrumb_title = article.title | split: ':' | first %}
+
+              <nav class="hero__breadcrumb">
+                <a href="{{ routes.root_url }}">Home</a>
+                <span>></span>
+                <a href="{{ blog.url }}">Blog</a>
+                <span>></span>
+                <span>{{ breadcrumb_title }}</span>
+              </nav>
+            {% endif %}
 
           {% when 'heading' %}
             <h1 class="hero__title" {{ block.shopify_attributes }}>
@@ -43,6 +68,27 @@
             >
               {{ block.settings.label }}
             </a>
+
+          {% when 'article_meta' %}
+            {% if template.name == 'article' and hero_details %}
+              <div class="hero__article-meta" {{ block.shopify_attributes }}>
+                {% if hero_details.author_image %}
+                  {{ hero_details.author_image | image_url: width: 80 | image_tag: class: 'hero__article-avatar' }}
+                {% endif %}
+
+                <div class="hero__article-meta-content">
+                  <p class="hero__article-author">
+                    {{ hero_details.author_name }}
+                  </p>
+
+                  <p class="hero__article-info">
+                    {{ article.published_at | date: '%B %-d, %Y' }}
+                    ·
+                    {{ hero_details.reading_time }} min read
+                  </p>
+                </div>
+              </div>
+            {% endif %}
         {% endcase %}
       {% endfor %}
     </div>
@@ -69,6 +115,36 @@
       "type": "image_picker",
       "id": "image",
       "label": "Hero Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Padding Inline",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
     }
   ],
   "blocks": [
@@ -145,6 +221,84 @@
           "type": "url",
           "id": "link",
           "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "breadcrumb",
+      "name": "Breadcrumb",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "article_meta",
+      "name": "Article Meta",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Hero Section",
+      "blocks": [
+        {
+          "type": "tag",
+          "settings": {
+            "text": "Science-Backed Hangover Relief"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "Your Personal Bodyguard… But For Hangovers"
+          }
+        },
+        {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>Hangover patches that deliver vitamins and nutrients while you sleep. Science-backed relief that actually works.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Premium Quality Materials"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Scientifically Formulated"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Works While You Sleep"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Fast & Easy to Apply"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Loved by Thousands"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop Patches Now"
+          }
+        },
+        {
+          "type": "article_meta",
+          "settings": {}
         }
       ]
     }
