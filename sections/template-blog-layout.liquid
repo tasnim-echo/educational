@@ -1,4 +1,5 @@
 {{ 'template-blog-layout.css' | asset_url | stylesheet_tag }}
+
 <section
   class="blog-layout"
   style="
@@ -7,6 +8,9 @@
     --blog-layout-padding-inline: {{ section.settings.padding_inline }}px;
   "
 >
+  <div class="blog-layout__mobile-jump">
+    {% render 'template-jump-to-card' %}
+  </div>
   <div class="page-width-custom">
     <div class="blog-layout__wrapper">
       <div class="blog-layout__content">
@@ -22,12 +26,33 @@
         {% assign how_to_use = article.metafields.custom.how_to_use.value %}
         {% render 'template-blog-how-to-use', section_data: how_to_use %}
 
-        {% render 'template-blog-try-party-patch' %}
-        {% render 'template-blog-testimonials' %}
-        {% render 'template-blog-perfect-usage' %}
-        {% render 'template-blog-comparison-table' %}
-        {% render 'template-blog-FAQ' %}
-        {% render 'template-blog-written-by' %}
+        {% comment %} first snippet:how_to_use {% endcomment %}
+        {% assign cta = article.metafields.custom.try_partypatch.value -%}
+        {%- render 'template-blog-try-party-patch', section_data: cta %}
+
+        {% comment %} first snippet:how_to_use {% endcomment %}
+        {% assign testimonials = article.metafields.custom.blog_testimonials.value %}
+        {% render 'template-blog-testimonials', section_data: testimonials %}
+
+        {% comment %} first snippet:perfect_for{% endcomment %}
+        {% assign perfect_for = article.metafields.custom.perfect_for.value %}
+        {% render 'template-blog-perfect-usage', section_data: perfect_for %}
+
+        {% comment %} first snippet:comparison_table{% endcomment %}
+        {% assign comparison = article.metafields.custom.comparison_table.value %}
+        {% render 'template-blog-comparison-table', section_data: comparison %}
+
+        {% comment %} first snippet:comparison_table{% endcomment %}
+        {% assign faq = article.metafields.custom.faq.value %}
+        {% render 'template-blog-faq', section_data: faq %}
+
+        <div class="blog-layout__mobile-share">
+          {% render 'template-share-card' %}
+        </div>
+
+        {% comment %} first snippet:written_by{% endcomment %}
+        {% assign written_by = article.metafields.custom.written_by.value %}
+        {% render 'template-blog-written-by', section_data: written_by %}
       </div>
 
       {% render 'template-blog-sidebar' %}

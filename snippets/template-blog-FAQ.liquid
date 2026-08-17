@@ -1,0 +1,23 @@
+{% if section_data %}
+  <section class="blog-faq" id="faq">
+    <h2 class="blog-faq__heading">
+      {{ section_data.heading }}
+    </h2>
+
+    <div class="blog-faq__list">
+      {% for faq in section_data.faqs.value %}
+        <details class="blog-faq__item">
+          <summary class="blog-faq__question">
+            {{ faq.question }}
+
+            <span class="blog-faq__icon"> {% render 'template-up-arrow' %} </span>
+          </summary>
+
+          <div class="blog-faq__answer rte">
+            {{ faq.answer }}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

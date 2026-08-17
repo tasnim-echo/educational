@@ -1,0 +1,17 @@
+{% if section_data %}
+  <section class="blog-perfect-for" id="perfect-for">
+    <h2 class="blog-perfect-for__heading">
+      {{ section_data.heading }}
+    </h2>
+
+    <div class="blog-perfect-for__grid">
+      {% for item in section_data.items.value %}
+        <div class="blog-perfect-for__item">
+          <span class="blog-perfect-for__text">
+            {{ item }}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

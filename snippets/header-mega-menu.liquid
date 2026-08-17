@@ -8,6 +8,18 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {% assign mega_collection = blank %}
+      {% assign mega_blog = blank %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'mega_menu' %}
+          {% if block.settings.menu_handle == link.handle %}
+            {% assign mega_collection = block.settings.collection %}
+            {% assign mega_blog = block.settings.blog %}
+            {% break %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -23,50 +35,222 @@
                 >
                   {{- link.title | escape -}}
                 </span>
-                {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
+
+              {% comment %} customed a bit {% endcomment %}
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
-                  role="list"
-                >
-                  {%- for childlink in link.links -%}
-                    <li>
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
-                      {%- if childlink.links != blank -%}
-                        <ul class="list-unstyled" role="list">
-                          {%- for grandchildlink in childlink.links -%}
-                            <li>
-                              <a
-                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                href="{{ grandchildlink.url }}"
-                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
-                              >
-                                {{ grandchildlink.title | escape }}
-                              </a>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                <div class="mega-menu__inner">
+                  <!-- LEFT SIDE -->
+                  <div class="mega-menu__left">
+                    <div class="mega-menu__heading">
+                      {% if link.handle == 'men' or link.handle == 'women' %}
+                        Clothing Categories
+                      {% else %}
+                        Browse Collection
+                      {% endif %}
+                    </div>
+
+                    <ul
+                      class="mega-menu__list"
+                      role="list"
+                    >
+                      {%- for childlink in link.links -%}
+                        <li>
+                          <a
+                            id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                            href="{{ childlink.url }}"
+                            class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                            {% if childlink.current %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            {{ childlink.title | escape }}
+                          </a>
+
+                          {%- if childlink.links != blank -%}
+                            <ul class="list-unstyled" role="list">
+                              {%- for grandchildlink in childlink.links -%}
+                                <li>
+                                  <a
+                                    id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                    href="{{ grandchildlink.url }}"
+                                    class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                    {% if grandchildlink.current %}
+                                      aria-current="page"
+                                    {% endif %}
+                                  >
+                                    {{ grandchildlink.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+
+                  <!-- RIGHT SIDE -->
+                  <div class="mega-menu__right">
+                    <div class="mega-menu__right-header">
+                      {% if link.handle == 'blog' %}
+                        <h3 class="mega-menu__right-heading">Featured Articles</h3>
+                      {% else %}
+                        <h3 class="mega-menu__right-heading">Best Sellers</h3>
+                      {% endif %}
+
+                      {% if link.handle == 'blog' and mega_blog != blank %}
+                        <a href="{{ mega_blog.url }}" class="mega-menu__view-all"> View All </a>
+                      {% elsif mega_collection != blank %}
+                        <a href="{{ mega_collection.url }}" class="mega-menu__view-all"> View All </a>
+                      {% endif %}
+                    </div>
+
+                    <div class="mega-menu__products">
+                      {% if mega_collection != blank %}
+                        {% for product in mega_collection.products limit: 4 %}
+                          <div class="mega-menu__product">
+                            <a
+                              href="{{ product.url }}"
+                              class="mega-menu__product-image-link"
+                            >
+                              {% if product.featured_image %}
+                                {{
+                                  product.featured_image
+                                  | image_url: width: 500
+                                  | image_tag:
+                                    class: 'mega-menu__product-image',
+                                    loading: 'lazy',
+                                    alt: product.featured_image.alt
+                                  | default: product.title
+                                }}
+                              {% endif %}
+                            </a>
+
+                            <div class="mega-menu__product-info">
+                              <h3 class="mega-menu__product-title">
+                                <a href="{{ product.url }}">
+                                  {{ product.title }}
+                                </a>
+                              </h3>
+
+                              {% assign rating = product.metafields.custom.rating.value %}
+                              {% assign rating_floor = rating | floor %}
+                              {% assign next_star = rating_floor | plus: 1 %}
+                              {% assign rating_decimal = rating | modulo: 1 %}
+
+                              {% if rating %}
+                                <div class="mega-menu__rating">
+                                  <div class="mega-menu__stars">
+                                    {% for i in (1..5) %}
+                                      {% if i <= rating_floor %}
+                                        <img
+                                          src="{{ 'icon-star-filled.svg' | asset_url }}"
+                                          alt=""
+                                          width="14"
+                                          height="14"
+                                        >
+
+                                      {% elsif i == next_star %}
+                                        {% if rating_decimal >= 0.5 %}
+                                          <img
+                                            src="{{ 'icon-star-half.svg' | asset_url }}"
+                                            alt=""
+                                            width="14"
+                                            height="14"
+                                          >
+
+                                        {% else %}
+                                          <img
+                                            src="{{ 'icon-star-empty.svg' | asset_url }}"
+                                            alt=""
+                                            width="14"
+                                            height="14"
+                                          >
+                                        {% endif %}
+
+                                      {% else %}
+                                        <img
+                                          src="{{ 'icon-star-empty.svg' | asset_url }}"
+                                          alt=""
+                                          width="14"
+                                          height="14"
+                                        >
+                                      {% endif %}
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              {% endif %}
+
+                              <div class="mega-menu__product-price">
+                                {{ product.price | money }}
+                              </div>
+
+                              {% assign swatch_variants = product.variants %}
+
+                              {% if swatch_variants.size > 0 %}
+                                <div class="mega-menu__swatches">
+                                  {% for variant in swatch_variants limit: 6 %}
+                                    {% assign swatch_image = variant.metafields.custom.swatch_image.value %}
+
+                                    {% if swatch_image != blank %}
+                                      <a
+                                        href="{{ variant.url }}"
+                                        class="mega-menu__swatch"
+                                        aria-label="{{ variant.title | escape }}"
+                                      >
+                                        {{
+                                          swatch_image
+                                          | image_url: width: 60
+                                          | image_tag:
+                                            class: 'mega-menu__swatch-image',
+                                            width: 32,
+                                            height: 32,
+                                            loading: 'lazy',
+                                            alt: variant.title
+                                        }}
+                                      </a>
+                                    {% endif %}
+                                  {% endfor %}
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                    {% if link.handle == 'blog' and mega_blog != blank %}
+                      <div class="mega-menu__articles">
+                        {% for blog_article in mega_blog.articles limit: 3 %}
+                          <a
+                            href="{{ blog_article.url }}"
+                            class="mega-menu__article"
+                          >
+                            {% if blog_article.image %}
+                              {{
+                                blog_article.image
+                                | image_url: width: 500
+                                | image_tag: class: 'mega-menu__article-image', loading: 'lazy', alt: blog_article.title
+                              }}
+                            {% endif %}
+
+                            <div class="mega-menu__article-content">
+                              <h3 class="mega-menu__article-title">
+                                {{ blog_article.title }}
+                              </h3>
+
+                              <span class="mega-menu__article-read"> Read Article </span>
+                            </div>
+                          </a>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
               </div>
             </details>
           </header-menu>

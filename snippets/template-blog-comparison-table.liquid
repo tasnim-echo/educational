@@ -1,0 +1,65 @@
+{{ 'template-comparison-table.css' | asset_url | stylesheet_tag }}
+{% if section_data %}
+  <section class="comparison-table comparison-table-snippet" id="comparison-table">
+    <h2 class="comparison-table__heading comparison-table__heading-color">
+      {{ section_data.heading }}
+    </h2>
+
+    <div class="comparison-table__wrapper">
+      <table class="comparison-table__table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Party Patch</th>
+            <th>Pills</th>
+            <th>Drink Mix</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for row in section_data.rows.value %}
+            <tr>
+              <td>{{ row.feature }}</td>
+
+              <td>
+                {% if row.party_patch %}
+                  <span class="comparison-table__icon comparison-table__icon--check comparison-table__icon--check-bg">
+                    <img src="{{ 'template-icon-check.svg' | asset_url }}" alt="Check" width="24" height="24">
+                  </span>
+                {% else %}
+                  <span class="comparison-table__icon comparison-table__icon--cross comparison-table__icon--cross-bg">
+                    <img src="{{ 'template-icon-cross.svg' | asset_url }}" alt="Cross" width="24" height="24">
+                  </span>
+                {% endif %}
+              </td>
+
+              <td>
+                {% if row.pills %}
+                  <span class="comparison-table__icon comparison-table__icon--check comparison-table__icon--check-bg">
+                    <img src="{{ 'template-icon-check.svg' | asset_url }}" alt="Check" width="24" height="24">
+                  </span>
+                {% else %}
+                  <span class="comparison-table__icon comparison-table__icon--cross comparison-table__icon--cross-bg">
+                    <img src="{{ 'template-icon-cross.svg' | asset_url }}" alt="Cross" width="24" height="24">
+                  </span>
+                {% endif %}
+              </td>
+
+              <td>
+                {% if row.drink_mix %}
+                  <span class="comparison-table__icon comparison-table__icon--check comparison-table__icon--check-bg">
+                    <img src="{{ 'template-icon-check.svg' | asset_url }}" alt="Check" width="24" height="24">
+                  </span>
+                {% else %}
+                  <span class="comparison-table__icon comparison-table__icon--cross comparison-table__icon--cross-bg">
+                    <img src="{{ 'template-icon-cross.svg' | asset_url }}" alt="Cross" width="24" height="24">
+                  </span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endif %}

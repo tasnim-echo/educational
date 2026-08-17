@@ -33,27 +33,191 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* customizing mega menu layout for blog article */
+.mega-menu__articles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.mega-menu__article {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.mega-menu__article-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 328 / 184.5;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.mega-menu__article-title {
+  margin: 0 0 8px;
+
+  font-weight: 600;
+
+  font-size: 18px;
+
+  line-height: 26px;
+}
+
+.mega-menu__article-read {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+  color: #002147;
+}
+/* customizing mega menu layout for blog article */
+
+/* customizing mega menu layout for products collection */
+.mega-menu__inner {
+  max-width: 1260px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  gap: 24px;
+}
+.mega-menu__left {
+  min-width: 0;
+}
+.mega-menu__right {
+  min-width: 0;
+}
+
+.mega-menu__right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.mega-menu__right-header h3 {
+  margin: 0;
+}
+.mega-menu__view-all {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #0b1e4c;
+}
+.mega-menu__products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.mega-menu__product {
+  min-width: 0;
+}
+
+.mega-menu__product-image-link {
+  display: block;
+}
+
+.mega-menu__product-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 242 / 281.98;
+  object-fit: cover;
+  border-radius: 10px;
+  min-width: 150px;
+  min-height: 174.78px;
+}
+.mega-menu__product-info {
+  margin-top: 12px;
+}
+
+.mega-menu__product-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.mega-menu__product-title a {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  text-decoration: none;
+  color: #0b1e4c;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.mega-menu__product-price {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  color: #0b1e4c;
+  margin: 0;
+}
+.mega-menu__swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mega-menu__swatch {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.mega-menu__swatch-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* customizing mega menu layout */
 
 .mega-menu__list {
-  display: grid;
-  gap: 1.8rem 4rem;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   list-style: none;
+  padding: 0;
 }
-
+.mega-menu__list > li:has(> ul) {
+  margin-top: 1.3rem;
+}
+.mega-menu__heading {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #757575;
+}
 .mega-menu__link {
-  color: rgba(var(--color-foreground), 0.75);
-  display: block;
-  line-height: calc(1 + 0.3 / var(--font-body-scale));
-  padding-bottom: 0.6rem;
-  padding-top: 0.6rem;
   text-decoration: none;
-  transition: text-decoration var(--duration-short) ease;
-  word-wrap: break-word;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 20px;
+  color: #0b1e4c;
 }
 
-.mega-menu__link--level-2 {
+/* .mega-menu__link--level-2 {
   font-weight: bold;
+} */
+#HeaderMenu-gifts-shop-by-budget {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #757575;
+}
+#HeaderMenu-kids-shop-by-age {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #757575;
 }
 
 .header--top-center .mega-menu__list {
@@ -61,6 +225,10 @@
   justify-content: center;
   flex-wrap: wrap;
   column-gap: 0;
+}
+
+.mega-menu__link[id^="HeaderMenu-"][id$="-shop-all"] {
+  font-weight: bold;
 }
 
 .header--top-center .mega-menu__list > li {

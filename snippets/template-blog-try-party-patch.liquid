@@ -1,0 +1,26 @@
+{% if section_data %}
+  <section class="blog-cta" id="try-party-patch">
+    <div class="blog-cta__content">
+      <h2 class="blog-cta__subheading">
+        {{ section_data.subheading }}
+      </h2>
+
+      <div class="blog-cta__heading ">
+        <h2>{{ section_data.heading }}</h2>
+      </div>
+
+      <div class="blog-cta__subpara ">
+        <p>{{ section_data.subpara }}</p>
+      </div>
+    </div>
+
+    <div class="blog-cta__action">
+      <a
+        href="{{ section_data.button_link }}"
+        class="blog-cta__button"
+      >
+        {{ section_data.button_label }}
+      </a>
+    </div>
+  </section>
+{% endif %}

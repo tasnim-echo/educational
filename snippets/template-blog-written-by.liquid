@@ -1,0 +1,22 @@
+{% if section_data %}
+  <section class="blog-written-by" id="written-by">
+    <div class="blog-written-by__avatar">
+      {% if section_data.avatar %}
+        {{ section_data.avatar | image_url: width: 120 | image_tag: class: 'blog-written-by__image' }}
+      {% endif %}
+    </div>
+
+    <div class="blog-written-by__content">
+      <p class="blog-written-by__written"><span>Written by</span> {{ section_data.written_by }}</p>
+
+      <p class="blog-written-by__reviewed"><span>Reviewed by</span> {{ section_data.reviewer_name }}</p>
+
+      <div class="blog-written-by__description rte">
+        {{ section_data.description }}
+      </div>
+    </div>
+    <div class="blog-written-by__description--mobile">
+      {{ section_data.description }}
+    </div>
+  </section>
+{% endif %}

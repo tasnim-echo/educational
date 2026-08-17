@@ -13,7 +13,6 @@
     >
       <span>
         {{- 'icon-hamburger.svg' | inline_asset_content -}}
-        {{- 'icon-close.svg' | inline_asset_content -}}
       </span>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
@@ -22,6 +21,19 @@
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
+                {% assign mega_collection = blank %}
+                {% assign mega_blog = blank %}
+
+                {% for block in section.blocks %}
+                  {% if block.type == 'mega_menu' %}
+                    {% if block.settings.menu_handle == link.handle %}
+                      {% assign mega_collection = block.settings.collection %}
+                      {% assign mega_blog = block.settings.blog %}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
@@ -31,10 +43,10 @@
                       >
                         {{ link.title | escape }}
                         <span class="svg-wrapper">
-                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                          {{- 'icon-arrow-custom.svg' | inline_asset_content -}}
                         </span>
                         <span class="svg-wrapper">
-                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                          {{- 'icon-arrow-custom.svg' | inline_asset_content -}}
                         </span>
                       </summary>
                       <div
@@ -45,14 +57,14 @@
                         <div class="menu-drawer__inner-submenu">
                           <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
                             <span class="svg-wrapper">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                              {{- 'icon-arrow-custom.svg' | inline_asset_content -}}
                             </span>
                             {{ link.title | escape }}
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             {%- for childlink in link.links -%}
-                              <li>
-                                {%- if childlink.links == blank -%}
+                              {%- if childlink.links == blank -%}
+                                <li>
                                   <a
                                     id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
                                     href="{{ childlink.url }}"
@@ -63,59 +75,189 @@
                                   >
                                     {{ childlink.title | escape }}
                                   </a>
-                                {%- else -%}
-                                  <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
-                                    <summary
-                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                </li>
+
+                              {%- else -%}
+                                {%- comment -%}
+                                  Don't show the parent childlink.
+                                  Show its grandchildren directly.
+                                {%- endcomment -%}
+
+                                {%- for grandchildlink in childlink.links -%}
+                                  <li>
+                                    <a
+                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                      href="{{ grandchildlink.url }}"
+                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                      {% if grandchildlink.current %}
+                                        aria-current="page"
+                                      {% endif %}
                                     >
-                                      {{ childlink.title | escape }}
-                                      <span class="svg-wrapper">
-                                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                                      </span>
-                                      <span class="svg-wrapper">
-                                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                                      </span>
-                                    </summary>
-                                    <div
-                                      id="childlink-{{ childlink.handle | escape }}"
-                                      class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                                    >
-                                      <button
-                                        class="menu-drawer__close-button link link--text focus-inset"
-                                        aria-expanded="true"
-                                      >
-                                        <span class="svg-wrapper">
-                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
-                                        </span>
-                                        {{ childlink.title | escape }}
-                                      </button>
-                                      <ul
-                                        class="menu-drawer__menu list-menu"
-                                        role="list"
-                                        tabindex="-1"
-                                      >
-                                        {%- for grandchildlink in childlink.links -%}
-                                          <li>
-                                            <a
-                                              id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                              href="{{ grandchildlink.url }}"
-                                              class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                              {% if grandchildlink.current %}
-                                                aria-current="page"
-                                              {% endif %}
-                                            >
-                                              {{ grandchildlink.title | escape }}
-                                            </a>
-                                          </li>
-                                        {%- endfor -%}
-                                      </ul>
-                                    </div>
-                                  </details>
-                                {%- endif -%}
-                              </li>
+                                      {{ grandchildlink.title | escape }}
+                                    </a>
+                                  </li>
+                                {%- endfor -%}
+                              {%- endif -%}
                             {%- endfor -%}
                           </ul>
+
+                          {% if mega_collection != blank %}
+                            <div class="menu-drawer__featured">
+                              <div class="menu-drawer__featured-header">
+                                <h3>Best Sellers</h3>
+
+                                <a href="{{ mega_collection.url }}"> View All </a>
+                              </div>
+
+                              <div class="menu-drawer__featured-products">
+                                {% for product in mega_collection.products limit: 2 %}
+                                  <div class="menu-drawer__featured-product">
+                                    <a
+                                      href="{{ product.url }}"
+                                      class="menu-drawer__featured-image-link"
+                                    >
+                                      {% if product.featured_image %}
+                                        {{
+                                          product.featured_image
+                                          | image_url: width: 400
+                                          | image_tag:
+                                            class: 'menu-drawer__featured-image',
+                                            loading: 'lazy',
+                                            alt: product.title
+                                        }}
+                                      {% endif %}
+                                    </a>
+
+                                    <div class="menu-drawer__featured-info">
+                                      <a
+                                        href="{{ product.url }}"
+                                        class="menu-drawer__featured-title"
+                                      >
+                                        {{ product.title }}
+                                      </a>
+
+                                      {% assign rating = product.metafields.custom.rating.value %}
+
+                                      {% if rating %}
+                                        <div class="menu-drawer__featured-rating">
+                                          {% assign rating_floor = rating | floor %}
+                                          {% assign next_star = rating_floor | plus: 1 %}
+                                          {% assign rating_decimal = rating | modulo: 1 %}
+
+                                          {% for i in (1..5) %}
+                                            {% if i <= rating_floor %}
+                                              <img
+                                                src="{{ 'icon-star-filled.svg' | asset_url }}"
+                                                width="12"
+                                                height="12"
+                                                alt=""
+                                              >
+
+                                            {% elsif i == next_star and rating_decimal >= 0.5 %}
+                                              <img
+                                                src="{{ 'icon-star-half.svg' | asset_url }}"
+                                                width="12"
+                                                height="12"
+                                                alt=""
+                                              >
+
+                                            {% else %}
+                                              <img
+                                                src="{{ 'icon-star-empty.svg' | asset_url }}"
+                                                width="12"
+                                                height="12"
+                                                alt=""
+                                              >
+                                            {% endif %}
+                                          {% endfor %}
+                                        </div>
+                                      {% endif %}
+
+                                      <div class="menu-drawer__featured-price">
+                                        {{ product.price | money }}
+                                      </div>
+
+                                      {%- comment -%}
+                                        Variant swatches will go here
+                                      {%- endcomment -%}
+
+                                      {% if product.variants.size > 1 %}
+                                        <div class="menu-drawer__featured-swatches">
+                                          {% for variant in product.variants %}
+                                            {% assign swatch_image = variant.metafields.custom.swatch_image.value %}
+
+                                            {% if swatch_image != blank %}
+                                              <a
+                                                href="{{ variant.url }}"
+                                                class="menu-drawer__featured-swatch"
+                                                title="{{ variant.title | escape }}"
+                                              >
+                                                {{
+                                                  swatch_image
+                                                  | image_url: width: 80
+                                                  | image_tag:
+                                                    loading: 'lazy',
+                                                    alt: variant.title,
+                                                    class: 'menu-drawer__featured-swatch-image'
+                                                }}
+                                              </a>
+                                            {% endif %}
+                                          {% endfor %}
+                                        </div>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                              </div>
+
+                              <a
+                                href="{{ mega_collection.url }}"
+                                class="menu-drawer__shop-all"
+                              >
+                                <span class="svg-wrapper">
+                                  {{ 'my-cart-icon.svg' | inline_asset_content }}
+                                </span>
+
+                                SHOP ALL
+                              </a>
+                            </div>
+                          {% endif %}
+
+                          {% comment %} blog {% endcomment %}
+                          {% if link.handle == 'blog' and mega_blog != blank %}
+                            {% assign blog_article = mega_blog.articles.first %}
+
+                            {% if blog_article != blank %}
+                              <div class="menu-drawer__featured-article">
+                                <div class="menu-drawer__featured-header">
+                                  <h3>Featured Article</h3>
+
+                                  <a href="{{ mega_collection.url }}"> View All </a>
+                                </div>
+                                <a
+                                  href="{{ blog_article.url }}"
+                                  class="menu-drawer__featured-article-image-link"
+                                >
+                                  {% if blog_article.image %}
+                                    {{
+                                      blog_article.image
+                                      | image_url: width: 600
+                                      | image_tag:
+                                        class: 'menu-drawer__featured-article-image',
+                                        loading: 'lazy',
+                                        alt: blog_article.title
+                                    }}
+                                  {% endif %}
+                                </a>
+
+                                <div class="menu-drawer__featured-article-content">
+                                  <h3 class="menu-drawer__featured-article-title">
+                                    {{ blog_article.title }}
+                                  </h3>
+                                </div>
+                              </div>
+                            {% endif %}
+                          {% endif %}
                         </div>
                       </div>
                     </details>

@@ -1,0 +1,116 @@
+{{ 'template-blog-keep-reading.css' | asset_url | stylesheet_tag }}
+{% assign selected_blog = section.settings.blog | default: 'news' %}
+
+<section class="blog-keep-reading">
+  <div class="page-width-custom">
+    <h2 class="blog-keep-reading__heading">Keep Reading</h2>
+
+    {% if selected_blog != blank %}
+      {% assign current_handle = article.handle %}
+      {% assign shown = 0 %}
+
+      <div class="blog-keep-reading__grid">
+        {% for blog_article in blogs[selected_blog].articles %}
+          {% unless blog_article.handle == current_handle %}
+            {% assign hero_details = blog_article.metafields.custom.hero_details.value %}
+
+            <a
+              class="blog-keep-reading__card {% if shown >= section.settings.posts_to_show %} blog-keep-reading__card--hidden{% endif %}"
+              href="{{ blog_article.url }}"
+            >
+              {% if blog_article.image %}
+                {{
+                  blog_article.image
+                  | image_url: width: 700
+                  | image_tag: class: 'blog-keep-reading__image', loading: 'lazy', alt: blog_article.title
+                }}
+              {% endif %}
+
+              <div class="blog-keep-reading__meta">
+                {% if blog_article.tags.size > 0 %}
+                  <span class="blog-keep-reading__tag">
+                    {{ blog_article.tags.first }}
+                  </span>
+                {% endif %}
+
+                {% if hero_details %}
+                  <span class="blog-keep-reading__time"> {{ hero_details.reading_time }} min read </span>
+                {% endif %}
+              </div>
+
+              <h3 class="blog-keep-reading__title">
+                {{ blog_article.title }}
+              </h3>
+            </a>
+
+            {% assign shown = shown | plus: 1 %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      <div class="blog-keep-reading__button-wrapper">
+        <button
+          type="button"
+          class="blog-keep-reading__button"
+          data-keep-reading-toggle
+        >
+          <span data-keep-reading-button-text> View All Articles </span>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.querySelector('[data-keep-reading-toggle]');
+    const buttonText = document.querySelector('[data-keep-reading-button-text]');
+
+    if (!toggleButton) return;
+
+    const hiddenCards = document.querySelectorAll('.blog-keep-reading__card--hidden');
+
+    // Don't show the button if there are no hidden articles
+    if (!hiddenCards.length) {
+      toggleButton.parentElement.style.display = 'none';
+      return;
+    }
+
+    toggleButton.addEventListener('click', function () {
+      const isExpanded = toggleButton.classList.toggle('blog-keep-reading__button--expanded');
+
+      hiddenCards.forEach(function (card) {
+        card.style.display = isExpanded ? 'block' : 'none';
+      });
+
+      buttonText.textContent = isExpanded ? 'View Less' : 'View All Articles';
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Blog Keep Reading",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Source blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "label": "Posts to show",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Keep Reading"
+    }
+  ]
+}
+{% endschema %}

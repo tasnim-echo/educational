@@ -1,0 +1,132 @@
+{% if section_data %}
+  <section class="blog-testimonials" id="testimonials">
+    <div class="blog-testimonials__header">
+      <div>
+        <h2 class="testimonials__heading">
+          {{ section_data.heading }}
+        </h2>
+
+        <div class="testimonials__rating">
+          <div class="testimonials__stars">
+            {% for i in (1..5) %}
+              <img
+                src="{{ 'template-star.svg' | asset_url }}"
+                alt="Star"
+                width="16"
+                height="16"
+              >
+            {% endfor %}
+          </div>
+
+          <span class="testimonials__rating-text">
+            {{ section_data.rating_text }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-testimonials__slider-wrapper">
+      <button class="blog-testimonials__prev">
+        <img
+          src="{{ 'template-right-arrow.svg' | asset_url }}"
+          alt="Previous"
+          width="16"
+          height="16"
+        >
+      </button>
+
+      <div class="swiper blog-testimonials__slider">
+        <div class="swiper-wrapper">
+          {% for testimonial in section_data.testimonials.value %}
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-card__stars">
+                  {% for i in (1..testimonial.rating) %}
+                    <img
+                      src="{{ 'template-star.svg' | asset_url }}"
+                      alt="Star"
+                      width="16"
+                      height="16"
+                    >
+                  {% endfor %}
+                </div>
+
+                <div class="testimonial-card__review rte">
+                  {{ testimonial.review }}
+                </div>
+
+                <div class="testimonial-card__author">
+                  <div class="testimonial-card__image">
+                    {{ testimonial.customer_image | image_url: width: 80 | image_tag }}
+                  </div>
+
+                  <span class="testimonial-card__name">
+                    {{ testimonial.customer_name }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <button class="blog-testimonials__next">
+        <img
+          src="{{ 'template-right-arrow.svg' | asset_url }}"
+          alt="Next"
+          width="16"
+          height="16"
+        >
+      </button>
+    </div>
+  </section>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('Swiper:', typeof Swiper);
+
+    new Swiper('.blog-testimonials__slider', {
+      slidesPerView: 1,
+      spaceBetween: 24,
+
+      navigation: {
+        nextEl: '.blog-testimonials__next',
+        prevEl: '.blog-testimonials__prev',
+      },
+
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+        },
+      },
+
+      on: {
+        init: toggleArrows,
+        slideChange: toggleArrows,
+      },
+    });
+    function toggleArrows(swiper) {
+      const prev = document.querySelector('.blog-testimonials__prev');
+      const next = document.querySelector('.blog-testimonials__next');
+
+      if (swiper.isBeginning) {
+        prev.style.display = 'none';
+        next.style.display = 'block';
+      } else if (swiper.isEnd) {
+        prev.style.display = 'block';
+        next.style.display = 'none';
+      } else {
+        prev.style.display = 'block';
+        next.style.display = 'block';
+      }
+    }
+  });
+</script>
