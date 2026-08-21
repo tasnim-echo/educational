@@ -1,0 +1,445 @@
+<div class="custom-filters">
+  <button
+    type="button"
+    class="custom-filters__open"
+    id="CustomFilterOpen"
+  >
+    Filter
+  </button>
+
+  <div
+    class="custom-filters__drawer"
+    id="CustomFilterDrawer"
+    aria-hidden="true"
+  >
+    <div class="custom-filters__overlay" id="CustomFilterOverlay"></div>
+
+    <div class="custom-filters__panel">
+      <div class="custom-filters__header">
+        <h2>Filters</h2>
+
+        <button
+          type="button"
+          id="CustomFilterClose"
+          aria-label="Close filters"
+        >
+          (close)
+        </button>
+      </div>
+
+      <div class="custom-filters__body">
+        {% for filter in results.filters %}
+          <div id="CustomFilters" class="custom-filter">
+            {% if filter.type != 'price_range' %}
+              <h3 class="custom-filter__title">
+                {{ filter.label }}
+              </h3>
+            {% endif %}
+
+            <div class="custom-filter__options">
+              {% comment %} price filter {% endcomment %}
+              {% if filter.type == 'price_range' %}
+                {% assign price_min = filter.min_value.value | default: 0 %}
+                {% assign price_max_limit = 5000 %}
+
+                <div
+                  class="custom-filter__price-range"
+                  data-price-range
+                  data-min="0"
+                  data-max="{{ price_max_limit }}"
+                >
+                  <div class="custom-filter__price-slider">
+                    <div class="custom-filter__price-track"></div>
+                    <div class="custom-filter__price-progress"></div>
+
+                    <input
+                      type="range"
+                      class="custom-filter__range custom-filter__range--min"
+                      id="Filter-{{ filter.param_name }}-from"
+                      name="{{ filter.min_value.param_name }}"
+                      min="0"
+                      max="{{ price_max_limit }}"
+                      value="{{ price_min }}"
+                      step="1"
+                    >
+
+                    <input
+                      type="range"
+                      class="custom-filter__range custom-filter__range--max"
+                      id="Filter-{{ filter.param_name }}-to"
+                      name="{{ filter.max_value.param_name }}"
+                      min="0"
+                      max="{{ price_max_limit }}"
+                      value="{{ price_max_limit }}"
+                      step="1"
+                    >
+                  </div>
+
+                  <div class="custom-filter__price-values">
+                    <span class="custom-filter__price-value">
+                      <span class="custom-filter__currency">$</span>
+                      <span data-price-min>{{ price_min }}</span>
+                    </span>
+
+                    <span class="custom-filter__price-to">to</span>
+
+                    <span class="custom-filter__price-value">
+                      <span class="custom-filter__currency">$</span>
+                      <span data-price-max>{{ price_max }}</span>
+                    </span>
+                  </div>
+                </div>
+
+              {% else %}
+                {% comment %} availability filter {% endcomment %}
+                {% for value in filter.values %}
+                  {% if value.active %}
+                    <label class="custom-filter__option">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-filter-url="{{ value.url_to_remove }}"
+                      >
+
+                      <span>{{ value.label }}</span>
+
+                      <span class="custom-filter__count">
+                        {{ value.count }}
+                      </span>
+                    </label>
+                  {% else %}
+                    <label class="custom-filter__option">
+                      <input
+                        type="checkbox"
+                        data-filter-url="{{ value.url_to_add }}"
+                      >
+
+                      <span>{{ value.label }}</span>
+
+                      <span class="custom-filter__count">
+                        {{ value.count }}
+                      </span>
+                    </label>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% comment %} Category filter {% endcomment %}
+        <div class="custom-filter__options">
+          <h3>Category</h3>
+          <label class="custom-filter__option">
+            <input
+              type="checkbox"
+              name="category"
+              value="best seller"
+              data-category-filter
+            >
+
+            <span>Best Sellers</span>
+          </label>
+
+          <label class="custom-filter__option">
+            <input
+              type="checkbox"
+              name="category"
+              value="new arrival"
+              data-category-filter
+            >
+
+            <span>New Arrivals</span>
+          </label>
+        </div>
+
+        {% comment %} Color filter {% endcomment %}
+        <div class="custom-filter">
+          <h3 class="custom-filter__title">Color</h3>
+
+          <div class="custom-filter__options">
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                name="color"
+                value="black"
+              >
+
+              <span>Black</span>
+            </label>
+
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                name="color"
+                value="white"
+              >
+
+              <span>White</span>
+            </label>
+
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                name="color"
+                value="red"
+              >
+
+              <span>Red</span>
+            </label>
+
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                name="color"
+                value="blue"
+              >
+
+              <span>Blue</span>
+            </label>
+
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                name="color"
+                value="green"
+              >
+
+              <span>Green</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const priceRanges = document.querySelectorAll('[data-price-range]');
+
+    priceRanges.forEach((range) => {
+      const minInput = range.querySelector('.custom-filter__range--min');
+      const maxInput = range.querySelector('.custom-filter__range--max');
+
+      const progress = range.querySelector('.custom-filter__price-progress');
+
+      const minValue = range.querySelector('[data-price-min]');
+      const maxValue = range.querySelector('[data-price-max]');
+
+      const min = Number(range.dataset.min);
+      const max = Number(range.dataset.max);
+
+      const updateSlider = () => {
+        let minVal = Number(minInput.value);
+        let maxVal = Number(maxInput.value);
+
+        // Don't allow minimum to go above maximum
+        if (minVal > maxVal) {
+          minVal = maxVal;
+          minInput.value = minVal;
+        }
+
+        // Don't allow maximum to go below minimum
+        if (maxVal < minVal) {
+          maxVal = minVal;
+          maxInput.value = maxVal;
+        }
+
+        const minPercent = ((minVal - min) / (max - min)) * 100;
+        const maxPercent = ((maxVal - min) / (max - min)) * 100;
+
+        progress.style.left = `${minPercent}%`;
+        progress.style.width = `${maxPercent - minPercent}%`;
+
+        minValue.textContent = minVal;
+        maxValue.textContent = maxVal;
+      };
+
+      minInput.addEventListener('input', updateSlider);
+      maxInput.addEventListener('input', updateSlider);
+
+      updateSlider();
+    });
+  });
+
+  // availabilty filter function
+  document.addEventListener('change', async (event) => {
+    const input = event.target;
+
+    if (!input.matches('.custom-filter__option input')) {
+      return;
+    }
+
+    const filterUrl = input.dataset.filterUrl;
+
+    if (!filterUrl) {
+      return;
+    }
+
+    const currentFilters = document.querySelector('#CustomFilters');
+    const currentProductGrid = document.querySelector('#ProductGridContainer');
+
+    if (!currentFilters || !currentProductGrid) {
+      return;
+    }
+
+    try {
+      const response = await fetch(filterUrl);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch filtered results');
+      }
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newFilters = doc.querySelector('#CustomFilters');
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
+      if (newFilters) {
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+
+      if (newProductGrid) {
+        currentProductGrid.innerHTML = newProductGrid.innerHTML;
+      }
+    } catch (error) {
+      console.error('Filter error:', error);
+    }
+  });
+
+  // price filter function
+  document.addEventListener('change', async (event) => {
+    const input = event.target.closest('.custom-filter__range--min, .custom-filter__range--max');
+
+    if (!input) {
+      return;
+    }
+
+    const priceRange = input.closest('[data-price-range]');
+
+    if (!priceRange) {
+      return;
+    }
+
+    const minInput = priceRange.querySelector('.custom-filter__range--min');
+    const maxInput = priceRange.querySelector('.custom-filter__range--max');
+
+    const minValue = minInput.value;
+    const maxValue = maxInput.value;
+
+    const currentUrl = new URL(window.location.href);
+
+    // Remove existing price filters
+    currentUrl.searchParams.delete(minInput.name);
+    currentUrl.searchParams.delete(maxInput.name);
+
+    // Add new minimum price
+    if (Number(minValue) > 0) {
+      currentUrl.searchParams.set(minInput.name, minValue);
+    }
+
+    // Add new maximum price
+    if (Number(maxValue) < Number(maxInput.max)) {
+      currentUrl.searchParams.set(maxInput.name, maxValue);
+    }
+
+    try {
+      const response = await fetch(currentUrl.toString());
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch price filtered results');
+      }
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newFilters = doc.querySelector('#CustomFilters');
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
+      const currentFilters = document.querySelector('#CustomFilters');
+      const currentProductGrid = document.querySelector('#ProductGridContainer');
+
+      if (newFilters && currentFilters) {
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+
+      if (newProductGrid && currentProductGrid) {
+        currentProductGrid.innerHTML = newProductGrid.innerHTML;
+      }
+
+      // Update browser URL without reloading
+      window.history.pushState({}, '', currentUrl.toString());
+    } catch (error) {
+      console.error('Price filter error:', error);
+    }
+  });
+
+  // category filter
+  document.addEventListener('change', async (event) => {
+    const input = event.target;
+
+    if (!input.matches('[data-category-filter]')) {
+      return;
+    }
+
+    const categoryInputs = document.querySelectorAll('[data-category-filter]');
+
+    const selectedCategories = [...categoryInputs].filter((input) => input.checked).map((input) => input.value);
+
+    const url = new URL(window.location.href);
+
+    // Get the current search term
+    const searchTerm = url.searchParams.get('q') || '';
+
+    // Remove our previous category query
+    const cleanSearchTerm = searchTerm
+      .replace(/tag:"best seller"/g, '')
+      .replace(/tag:"new arrival"/g, '')
+      .trim();
+
+    let newSearchTerm = cleanSearchTerm;
+
+    if (selectedCategories.length > 0) {
+      const categoryQuery = selectedCategories.map((category) => `tag:"${category}"`).join(' OR ');
+
+      newSearchTerm = `${cleanSearchTerm} (${categoryQuery})`.trim();
+    }
+
+    url.searchParams.set('q', newSearchTerm);
+
+    try {
+      const response = await fetch(url.toString());
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch category filtered results');
+      }
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newFilters = doc.querySelector('#CustomFilters');
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
+      const currentFilters = document.querySelector('#CustomFilters');
+      const currentProductGrid = document.querySelector('#ProductGridContainer');
+
+      if (newFilters && currentFilters) {
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+
+      if (newProductGrid && currentProductGrid) {
+        currentProductGrid.innerHTML = newProductGrid.innerHTML;
+      }
+    } catch (error) {
+      console.error('Category filter error:', error);
+    }
+  });
+</script>

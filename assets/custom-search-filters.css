@@ -1,0 +1,245 @@
+.custom-filters {
+  display: flex;
+  justify-content: flex-end;
+}
+.custom-filters__drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  visibility: hidden;
+  pointer-events: none;
+}
+.custom-filters__open {
+  border: 1px solid #1a1a1a;
+  background: transparent;
+  padding: 2px 25.35px;
+  border-radius: 32px;
+}
+
+.custom-filters__open.is-active {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.custom-filters__drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.custom-filters__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-filters__drawer.is-open .custom-filters__overlay {
+  opacity: 1;
+  display: block !important;
+}
+
+.custom-filters__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(400px, 90%);
+  height: 100%;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.custom-filters__drawer.is-open .custom-filters__panel {
+  transform: translateX(0);
+}
+
+.custom-filters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-filters__header h2 {
+  margin: 0;
+}
+
+.custom-filters__header button {
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.custom-filters__body {
+  padding: 20px;
+}
+
+.custom-filter__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.custom-filter__checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #1a1a1a;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.custom-filter__checkbox--active {
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 12px;
+}
+
+.custom-filter__price-range {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.custom-filter__price-slider {
+  position: relative;
+  height: 20px;
+}
+
+.custom-filter__price-track,
+.custom-filter__price-progress {
+  position: absolute;
+  top: 9px;
+  height: 2px;
+  border-radius: 10px;
+}
+
+.custom-filter__price-track {
+  left: 0;
+  right: 0;
+  background: #d9d9d9;
+}
+
+.custom-filter__price-progress {
+  left: 0;
+  width: 100%;
+  background: #222;
+  z-index: 1;
+  display: block !important;
+}
+
+/* Range inputs */
+.custom-filter__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Chrome / Safari */
+.custom-filter__range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+}
+
+.custom-filter__range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 10px;
+  height: 10px;
+
+  margin-top: -4px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #222;
+
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Firefox */
+.custom-filter__range::-moz-range-track {
+  height: 2px;
+  background: transparent;
+}
+
+.custom-filter__range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #222;
+
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Make max handle accessible above min handle */
+.custom-filter__range--max {
+  z-index: 3;
+}
+
+.custom-filter__range--min {
+  z-index: 4;
+}
+
+/* Price labels */
+.custom-filter__price-values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.custom-filter__price-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+
+  min-width: 58px;
+  height: 24px;
+  padding: 0 9px;
+
+  border: 1px solid #999;
+  border-radius: 20px;
+
+  background: #fff;
+
+  font-size: 11px;
+  line-height: 1;
+}
+
+.custom-filter__currency {
+  font-size: 10px;
+}
+
+.custom-filter__price-to {
+  font-size: 11px;
+  color: #333;
+}
+
+@media (max-width: 767px) {
+  .custom-filters__panel {
+    width: 100%;
+  }
+}
