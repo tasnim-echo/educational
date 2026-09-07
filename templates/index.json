@@ -175,7 +175,7 @@
           "settings": {
             "heading": "Did you know?",
             "content": "<p>When you swallow a vitamin pill the morning after, only ~10% of the nutrients actually reach your bloodstream. The rest is destroyed by your already-irritated stomach acid.</p>",
-            "background_color": "#fef7e0",
+            "background_color": "#E0E3FE",
             "open_by_default": true
           }
         }
