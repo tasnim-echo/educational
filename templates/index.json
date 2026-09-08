@@ -33,6 +33,7 @@
         "feature_1": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/svgviewer-output_8.svg",
             "text": "No Pills to swallow - 90% more effective"
           }
         },
@@ -65,7 +66,12 @@
         "feature_3",
         "button"
       ],
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/ela-de-pure-gV--k974W68-unsplash_3a336892-99be-46bf-a720-c94cf2eb5f7e.jpg",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_inline": 60
+      }
     },
     "template_usp_AqMiPn": {
       "type": "template-usp",
@@ -73,6 +79,7 @@
         "usp_WEPzFU": {
           "type": "usp",
           "settings": {
+            "icon": "shopify://shop_images/svgviewer-output_14.svg",
             "heading": "5 Free Patches",
             "subheading": "On orders $40+"
           }
@@ -99,13 +106,18 @@
           }
         }
       },
-      "block_order": ["usp_WEPzFU", "usp_ngCgyL", "usp_grdefc", "usp_qNmMgi"],
+      "block_order": [
+        "usp_WEPzFU",
+        "usp_ngCgyL",
+        "usp_grdefc",
+        "usp_qNmMgi"
+      ],
       "name": "USP Section",
       "settings": {
         "background_color": "#86e4ed",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "padding_inline": 150
+        "padding_top": 120,
+        "padding_bottom": 52,
+        "padding_inline": 194
       }
     },
     "template_information_grid_WA9FrH": {
@@ -132,6 +144,7 @@
         "feature_6Khky8": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/svgviewer-output_12.svg",
             "title": "Pounding headaches",
             "description": "Alcohol causes blood vessels to expand and triggers inflammation, leaving your head throbbing."
           }
@@ -162,7 +175,7 @@
           "settings": {
             "heading": "Did you know?",
             "content": "<p>When you swallow a vitamin pill the morning after, only ~10% of the nutrients actually reach your bloodstream. The rest is destroyed by your already-irritated stomach acid.</p>",
-            "background_color": "#fef7e0",
+            "background_color": "#E0E3FE",
             "open_by_default": true
           }
         }
@@ -756,7 +769,7 @@
       ],
       "name": "FAQ",
       "settings": {
-        "background_color": "#ffffff",
+        "background": "linear-gradient(135deg, #fbf8e3 20%, #e3fbf8 100%)",
         "padding_top": 80,
         "padding_bottom": 80
       }
