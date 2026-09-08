@@ -7,7 +7,7 @@
 .how-it-works__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 54px;
+    gap: 50px;
 }
 /* Left */
 .how-it-works__content {
