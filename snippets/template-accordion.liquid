@@ -2,7 +2,10 @@
 <script src="{{ 'template-accordion.js' | asset_url }}" defer></script>
 <div
   class="info-grid__accordion{% if block.settings.open_by_default %} is-open {% endif %}"
-  style="--accordion-bg: {{ block.settings.background_color }};"
+  style="
+    --accordion-bg: {{ block.settings.background_color }};
+    --accordion-border: {{ block.settings.border_color }};
+  "
   {{ block.shopify_attributes }}
 >
   <button class="accordion__header">

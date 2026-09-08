@@ -4,8 +4,8 @@
   class="how-it-works"
   style="
     --how-it-works-bg:{{ section.settings.background_color }};
-    --how-it-works-padding-top:{{ section.settings.padding_top }};
-    --how-it-works-padding-bottom:{{ section.settings.padding_bottom }};
+    --how-it-works-padding-top:{{ section.settings.padding_top }}px;
+    --how-it-works-padding-bottom:{{ section.settings.padding_bottom }}px;
   "
 >
   <div class="page-width-custom">
@@ -41,7 +41,7 @@
             {% case block.type %}
               {% when 'step' %}
                 {% assign step_number = step_number | plus: 1 %}
-                <div class="step-card">
+                <div class="step-card" {{ block.shopify_attributes }}>
                   <div class="step-card__number">
                     {{ step_number }}
                   </div>
@@ -211,6 +211,12 @@
           "id": "background_color",
           "label": "Background Color",
           "default": "#fef7e0"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border Color",
+          "default": "#fbd03a"
         },
         {
           "type": "checkbox",
