@@ -1,11 +1,92 @@
 <div class="custom-filters">
-  <button
-    type="button"
-    class="custom-filters__open"
-    id="CustomFilterOpen"
-  >
-    Filter
-  </button>
+  <div class="custom-toolbar">
+    <button
+      type="button"
+      class="custom-filters__open"
+      id="CustomFilterOpen"
+    >
+      Filter
+    </button>
+    <div class="custom-sort popout-menu">
+      <span class="custom-sort__border" aria-hidden="true"></span>
+
+      <button type="button" class="custom-sort__label">Sort</button>
+
+      <div class="custom-sort__menu-bg" aria-hidden="true">
+        <svg
+          viewBox="0 0 282 322"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M221 1H176C167.163 1 160 8.16344 160 17V48C160 56.8366 152.837 64 144 64H17C8.16344 64 1 71.1634 1 80V305C1 313.837 8.16344 321 17 321H141"
+            stroke="#1A1A1A"
+          />
+
+          <path
+            d="M221 1H265C273.837 1 281 8.16344 281 17V305C281 313.837 273.837 321 265 321H141"
+            stroke="#1A1A1A"
+          />
+        </svg>
+
+        <svg
+          class="custom-sort__fill"
+          viewBox="0 0 282 322"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M221 1H176C167.163 1 160 8.16344 160 17V48C160 56.8366 152.837 64 144 64H17C8.16344 64 1 71.1634 1 80V305C1 313.837 8.16344 321 17 321H141"
+            fill="#fff"
+            stroke="#fff"
+          />
+
+          <path
+            d="M221 1H265C273.837 1 281 8.16344 281 17V305C281 313.837 273.837 321 265 321H141"
+            fill="#fff"
+            stroke="#fff"
+          />
+        </svg>
+      </div>
+
+      <div class="custom-sort__content">
+        <button
+          type="button"
+          data-sort-value="created-descending"
+        >
+          New
+        </button>
+
+        <button
+          type="button"
+          data-sort-value="price-ascending"
+        >
+          Price (Low - High)
+        </button>
+
+        <button
+          type="button"
+          data-sort-value="price-descending"
+        >
+          Price (High - Low)
+        </button>
+
+        <button
+          type="button"
+          data-sort-value="title-ascending"
+        >
+          Title (A - Z)
+        </button>
+
+        <button
+          type="button"
+          data-sort-value="title-descending"
+        >
+          Title (Z - A)
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div
     class="custom-filters__drawer"
@@ -128,29 +209,32 @@
         {% endfor %}
 
         {% comment %} Category filter {% endcomment %}
-        <div class="custom-filter__options">
-          <h3>Category</h3>
-          <label class="custom-filter__option">
-            <input
-              type="checkbox"
-              name="category"
-              value="best seller"
-              data-category-filter
-            >
+        <div
+          class="custom-filter"
+          data-category-filter-container
+          data-search-term="{{ search.terms | escape }}"
+        >
+          <h3 class="custom-filter__title">Category</h3>
 
-            <span>Best Sellers</span>
-          </label>
+          <div class="custom-filter__options">
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                value="best seller"
+                data-category-filter
+              >
+              <span>Best Sellers</span>
+            </label>
 
-          <label class="custom-filter__option">
-            <input
-              type="checkbox"
-              name="category"
-              value="new arrival"
-              data-category-filter
-            >
-
-            <span>New Arrivals</span>
-          </label>
+            <label class="custom-filter__option">
+              <input
+                type="checkbox"
+                value="new arrival"
+                data-category-filter
+              >
+              <span>New Arrivals</span>
+            </label>
+          </div>
         </div>
 
         {% comment %} Color filter {% endcomment %}
@@ -163,8 +247,8 @@
                 type="checkbox"
                 name="color"
                 value="black"
+                data-color-filter
               >
-
               <span>Black</span>
             </label>
 
@@ -173,8 +257,8 @@
                 type="checkbox"
                 name="color"
                 value="white"
+                data-color-filter
               >
-
               <span>White</span>
             </label>
 
@@ -183,8 +267,8 @@
                 type="checkbox"
                 name="color"
                 value="red"
+                data-color-filter
               >
-
               <span>Red</span>
             </label>
 
@@ -193,8 +277,8 @@
                 type="checkbox"
                 name="color"
                 value="blue"
+                data-color-filter
               >
-
               <span>Blue</span>
             </label>
 
@@ -203,8 +287,8 @@
                 type="checkbox"
                 name="color"
                 value="green"
+                data-color-filter
               >
-
               <span>Green</span>
             </label>
           </div>
@@ -388,30 +472,55 @@
       return;
     }
 
-    const categoryInputs = document.querySelectorAll('[data-category-filter]');
+    const categoryInputs = [...document.querySelectorAll('[data-category-filter]')];
 
-    const selectedCategories = [...categoryInputs].filter((input) => input.checked).map((input) => input.value);
+    const selectedCategories = categoryInputs.filter((input) => input.checked).map((input) => input.value);
 
     const url = new URL(window.location.href);
 
-    // Get the current search term
-    const searchTerm = url.searchParams.get('q') || '';
+    /*
+     * Get the original search term.
+     * Example: board
+     */
+    const categoryContainer = document.querySelector('[data-category-filter-container]');
 
-    // Remove our previous category query
-    const cleanSearchTerm = searchTerm
-      .replace(/tag:"best seller"/g, '')
-      .replace(/tag:"new arrival"/g, '')
-      .trim();
+    const searchTerm = categoryContainer?.dataset.searchTerm || '';
 
-    let newSearchTerm = cleanSearchTerm;
+    /*
+     * Build Category part of the query
+     */
+    let categoryQuery = '';
 
-    if (selectedCategories.length > 0) {
-      const categoryQuery = selectedCategories.map((category) => `tag:"${category}"`).join(' OR ');
-
-      newSearchTerm = `${cleanSearchTerm} (${categoryQuery})`.trim();
+    if (selectedCategories.length === 1) {
+      categoryQuery = `tag:"${selectedCategories[0]}"`;
     }
 
-    url.searchParams.set('q', newSearchTerm);
+    if (selectedCategories.length === 2) {
+      categoryQuery = `(tag:"best seller" OR tag:"new arrival")`;
+    }
+
+    /*
+     * Build the final search query
+     */
+    let finalQuery = searchTerm;
+
+    if (categoryQuery) {
+      finalQuery = categoryQuery;
+    }
+
+    /*
+     * Update ONLY q.
+     *
+     * Existing parameters such as:
+     * filter.v.availability
+     * filter.v.price
+     * options[prefix]
+     *
+     * remain untouched.
+     */
+    url.searchParams.set('q', finalQuery);
+
+    console.log('Final URL:', url.toString());
 
     try {
       const response = await fetch(url.toString());
@@ -423,12 +532,21 @@
       const html = await response.text();
 
       const parser = new DOMParser();
+
       const doc = parser.parseFromString(html, 'text/html');
 
+      /*
+       * Replace filters
+       */
       const newFilters = doc.querySelector('#CustomFilters');
-      const newProductGrid = doc.querySelector('#ProductGridContainer');
 
       const currentFilters = document.querySelector('#CustomFilters');
+
+      /*
+       * Replace products
+       */
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
       const currentProductGrid = document.querySelector('#ProductGridContainer');
 
       if (newFilters && currentFilters) {
@@ -438,8 +556,139 @@
       if (newProductGrid && currentProductGrid) {
         currentProductGrid.innerHTML = newProductGrid.innerHTML;
       }
+
+      /*
+       * Update browser URL
+       */
+      window.history.pushState({}, '', url.toString());
     } catch (error) {
       console.error('Category filter error:', error);
+    }
+  });
+
+  // Color filter
+  document.addEventListener('change', async (event) => {
+    const input = event.target;
+
+    if (!input.matches('[data-color-filter]')) {
+      return;
+    }
+
+    const colorInputs = [...document.querySelectorAll('[data-color-filter]')];
+
+    const selectedColors = colorInputs.filter((input) => input.checked).map((input) => input.value);
+
+    const url = new URL(window.location.href);
+
+    const categoryContainer = document.querySelector('[data-category-filter-container]');
+
+    const originalSearch = categoryContainer?.dataset.searchTerm || '';
+
+    let colorQuery = '';
+
+    if (selectedColors.length === 1) {
+      colorQuery = `tag:"${selectedColors[0]}"`;
+    }
+
+    if (selectedColors.length > 1) {
+      colorQuery = `(${selectedColors.map((color) => `tag:"${color}"`).join(' OR ')})`;
+    }
+
+    if (colorQuery) {
+      url.searchParams.set('q', colorQuery);
+    } else {
+      url.searchParams.set('q', originalSearch);
+    }
+
+    try {
+      const response = await fetch(url.toString());
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch color results');
+      }
+
+      const html = await response.text();
+
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      const newFilters = doc.querySelector('#CustomFilters');
+
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
+      const currentFilters = document.querySelector('#CustomFilters');
+
+      const currentProductGrid = document.querySelector('#ProductGridContainer');
+
+      if (newFilters && currentFilters) {
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+
+      if (newProductGrid && currentProductGrid) {
+        currentProductGrid.innerHTML = newProductGrid.innerHTML;
+      }
+
+      window.history.pushState({}, '', url.toString());
+    } catch (error) {
+      console.error('Color filter error:', error);
+    }
+  });
+
+  // sort
+  // Sorting
+  document.addEventListener('click', async (event) => {
+    const sortButton = event.target.closest('[data-sort-value]');
+
+    if (!sortButton) {
+      return;
+    }
+
+    const sortValue = sortButton.dataset.sortValue;
+
+    if (!sortValue) {
+      return;
+    }
+
+    const url = new URL(window.location.href);
+
+    // Shopify sorting parameter
+    url.searchParams.set('sort_by', sortValue);
+
+    const currentFilters = document.querySelector('#CustomFilters');
+    const currentProductGrid = document.querySelector('#ProductGridContainer');
+
+    if (!currentProductGrid) {
+      return;
+    }
+
+    try {
+      const response = await fetch(url.toString());
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch sorted results');
+      }
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newFilters = doc.querySelector('#CustomFilters');
+      const newProductGrid = doc.querySelector('#ProductGridContainer');
+
+      // Replace filters
+      if (newFilters && currentFilters) {
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+
+      // Replace products
+      if (newProductGrid && currentProductGrid) {
+        currentProductGrid.innerHTML = newProductGrid.innerHTML;
+      }
+
+      // Update URL without page reload
+      window.history.pushState({}, '', url.toString());
+    } catch (error) {
+      console.error('Sort error:', error);
     }
   });
 </script>

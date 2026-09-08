@@ -18,7 +18,11 @@
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'tag' %}
-            <span class="hero__tag" {{ block.shopify_attributes }}>
+            <span
+              style="background-color: {{ block.settings.background_color }};"
+              class="hero__tag"
+              {{ block.shopify_attributes }}
+            >
               {{ block.settings.text }}
             </span>
 
@@ -158,6 +162,12 @@
           "id": "text",
           "label": "Tag",
           "default": "Science-Backed Hangover Relief"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#86E4ED"
         }
       ]
     },
