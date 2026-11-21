@@ -70,12 +70,6 @@
 
     const hiddenCards = document.querySelectorAll('.blog-keep-reading__card--hidden');
 
-    // Don't show the button if there are no hidden articles
-    if (!hiddenCards.length) {
-      toggleButton.parentElement.style.display = 'none';
-      return;
-    }
-
     toggleButton.addEventListener('click', function () {
       const isExpanded = toggleButton.classList.toggle('blog-keep-reading__button--expanded');
 
